@@ -42,15 +42,21 @@
   --ease-spring: cubic-bezier(.34,1.56,.64,1);
 }
 
-* { box-sizing: border-box; }
+*, *::before, *::after { box-sizing: border-box; }
 
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+  overflow-x: clip;   /* clip es más seguro que hidden en iOS Safari */
+  max-width: 100%;
+}
 
 body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
   background-color: var(--white);
   color: var(--text);
+  max-width: 100%;
+  overflow-x: clip;
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
@@ -1303,13 +1309,57 @@ section {
 }
 
 @media (max-width: 600px) {
-  section { padding: 4rem 1.2rem; }
-  .hero { padding: 5rem 1.2rem 6rem; }
-  .form-row { grid-template-columns: 1fr; }
-  .footer-main { grid-template-columns: 1fr; }
+  /* ── Blobs: tamaño fijo → relativo para no desbordar ── */
+  .blob-1 { width: 70vw; height: 70vw; top: -15vw; left: -20vw; }
+  .blob-2 { width: 90vw; height: 90vw; bottom: -25vw; right: -25vw; }
+  .blob-3 { width: 60vw; height: 60vw; }
+
+  /* ── Secciones: 10% margen lateral (5vw × 2) ── */
+  section { padding: 4rem 5vw; }
+  .hero   { padding: 5rem 5vw 6rem; }
+  .stats-section { padding: 4rem 5vw; }
+  .footer { padding: 3.5rem 5vw 2rem; }
+  .nav-container { padding: .9rem 5vw; }
+  .nav-menu.open { padding: 1rem 5vw; }
+
+  /* ── Contenedores internos: nunca más anchos que el viewport ── */
+  .services-grid,
+  .stats-inner,
+  .testimonials-grid,
+  .videos-grid,
+  .calc-layout,
+  .calc-container,
+  .about-content,
+  .contact-wrap,
+  .footer-main,
+  .section-head { width: 100%; max-width: 100%; }
+
+  /* ── Grids: 1 columna en móvil ── */
+  .services-grid    { grid-template-columns: 1fr; }
+  .testimonials-grid{ grid-template-columns: 1fr; }
+  .videos-grid      { grid-template-columns: 1fr; }
+  .stats-inner      { grid-template-columns: 1fr 1fr; }
+  .footer-main      { grid-template-columns: 1fr; }
+  .form-row         { grid-template-columns: 1fr; }
+
+  /* ── Cards: padding interno seguro ── */
+  .service-card   { padding: 1.8rem 1.4rem; }
+  .testimonial-card{ padding: 1.6rem; }
+  .calc-container { padding: 1.4rem; }
+  .contact-form   { padding: 1.6rem; }
+
+  /* ── Foto de Luis: no más de 80vw ── */
+  .about-photo { width: min(280px, 80vw); height: min(280px, 80vw); }
+
+  /* ── Hero content sin padding extra ── */
+  .hero-content { padding: 0; max-width: 100%; }
+
+  /* ── Footer ── */
   .footer-bottom { justify-content: center; text-align: center; }
-  .nav-container { padding: 1rem 1.2rem; }
   .logo-text small { display: none; }
+
+  /* ── Anchors de texto que pueden desbordar ── */
+  .contact-list a, .footer-col a { word-break: break-word; }
 }
 
 @media (prefers-reduced-motion: reduce) {
