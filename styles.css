@@ -212,6 +212,7 @@ h1, h2, h3, h4 {
   background-position: center top;
   background-repeat: no-repeat;
   isolation: isolate;
+  overflow: clip;
 }
 .hero::before {
   content: '';
@@ -235,7 +236,8 @@ h1, h2, h3, h4 {
   opacity: .5;
 }
 
-.hero-bg { position: absolute; inset: 0; overflow: hidden; z-index: -1; }
+/* los blobs viven dentro de hero-bg que contiene el overflow */
+.hero-bg { position: absolute; inset: 0; overflow: clip; z-index: -1; }
 .blob {
   position: absolute;
   border-radius: 50%;
@@ -244,27 +246,28 @@ h1, h2, h3, h4 {
   animation: float 14s ease-in-out infinite;
 }
 .blob-1 {
-  width: 420px; height: 420px;
+  width: min(420px, 80vw); height: min(420px, 80vw);
   background: #2E86C1;
   top: -120px; left: -80px;
 }
 .blob-2 {
-  width: 520px; height: 520px;
+  width: min(520px, 90vw); height: min(520px, 90vw);
   background: #D4AF37;
   bottom: -180px; right: -120px;
   animation-delay: -5s;
   opacity: .35;
 }
 .blob-3 {
-  width: 320px; height: 320px;
+  width: min(320px, 70vw); height: min(320px, 70vw);
   background: #4DA6E0;
   top: 30%; right: 18%;
   animation-delay: -9s;
   opacity: .3;
 }
+/* solo desplazamiento vertical — nunca horizontal */
 @keyframes float {
-  0%, 100% { transform: translate(0,0) scale(1); }
-  50% { transform: translate(30px, -40px) scale(1.08); }
+  0%, 100% { transform: translateY(0) scale(1); }
+  50%       { transform: translateY(-40px) scale(1.08); }
 }
 
 .hero-content {
@@ -1309,11 +1312,6 @@ section {
 }
 
 @media (max-width: 600px) {
-  /* ── Blobs: tamaño fijo → relativo para no desbordar ── */
-  .blob-1 { width: 70vw; height: 70vw; top: -15vw; left: -20vw; }
-  .blob-2 { width: 90vw; height: 90vw; bottom: -25vw; right: -25vw; }
-  .blob-3 { width: 60vw; height: 60vw; }
-
   /* ── Secciones: 10% margen lateral (5vw × 2) ── */
   section { padding: 4rem 5vw; }
   .hero   { padding: 5rem 5vw 6rem; }
