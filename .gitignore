@@ -1,0 +1,26 @@
+﻿# Backups
+*.bak
+*.backup
+*.tmp
+*.orig
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor
+.vscode/
+.idea/
+*.swp
+
+# Logs
+*.log
+npm-debug.log*
+
+# Env
+.env
+.env.local
+
+# Vercel
+.vercel

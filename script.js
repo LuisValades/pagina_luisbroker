@@ -1,320 +1,404 @@
-/* =========================================
-   LUIS VALADÉS · BRÓKER HIPOTECARIO
-   script.js — interacciones y animaciones
-   ========================================= */
+/* ============================================================
+   LUIS VALADÉS · V3 · Davincci · script desde cero
+   ============================================================ */
 
 (function () {
   'use strict';
 
-  // ---------- helpers ----------
-  const $  = (sel, ctx = document) => ctx.querySelector(sel);
-  const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
-  const fmtMXN = new Intl.NumberFormat('es-MX', {
-    style: 'currency',
-    currency: 'MXN',
-    maximumFractionDigits: 0
-  });
+  const $  = (s, c = document) => c.querySelector(s);
+  const $$ = (s, c = document) => Array.from(c.querySelectorAll(s));
+  const fmtMXN = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', maximumFractionDigits: 0 });
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // ---------- año en footer ----------
-  const yearEl = $('#year');
-  if (yearEl) yearEl.textContent = new Date().getFullYear();
+  /* ---------- footer year ---------- */
+  const yr = $('#year');
+  if (yr) yr.textContent = new Date().getFullYear();
 
-  // ---------- navbar scroll state ----------
-  const navbar = $('#navbar');
-  const onScroll = () => {
-    if (!navbar) return;
-    navbar.classList.toggle('scrolled', window.scrollY > 30);
-  };
+  /* ---------- nav scroll state ---------- */
+  const nav = $('#nav');
+  const onScroll = () => nav && nav.classList.toggle('is-scrolled', window.scrollY > 30);
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 
-  // ---------- menú móvil ----------
-  const navToggle = $('#navToggle');
-  const navMenu   = $('#navMenu');
-  if (navToggle && navMenu) {
-    navToggle.addEventListener('click', () => {
-      navMenu.classList.toggle('open');
-      const icon = navToggle.querySelector('i');
-      if (icon) icon.className = navMenu.classList.contains('open') ? 'fas fa-xmark' : 'fas fa-bars';
+  /* ---------- mobile menu toggle ---------- */
+  const toggle = $('#navToggle');
+  const menu = $('#navMenu');
+  if (toggle && menu) {
+    toggle.addEventListener('click', () => {
+      const isOpen = menu.classList.toggle('is-open');
+      toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
     });
-    $$('#navMenu a').forEach(a => a.addEventListener('click', () => {
-      navMenu.classList.remove('open');
-      const icon = navToggle.querySelector('i');
-      if (icon) icon.className = 'fas fa-bars';
+    $$('a', menu).forEach(a => a.addEventListener('click', () => {
+      menu.classList.remove('is-open');
+      toggle.setAttribute('aria-expanded', 'false');
     }));
   }
 
-  // ---------- Intersection Observer: reveal ----------
-  const revealEls = $$('.reveal');
-  if ('IntersectionObserver' in window && revealEls.length) {
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          io.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-    revealEls.forEach(el => io.observe(el));
-  } else {
-    revealEls.forEach(el => el.classList.add('is-visible'));
-  }
-
-  // ---------- contadores animados ----------
-  const counters = $$('.stat-number');
-  const runCounter = (el) => {
-    const target = parseFloat(el.dataset.target || '0');
-    const suffix = el.dataset.suffix || '';
-    const duration = 1800;
-    const start = performance.now();
-    el.classList.add('counting');
-
-    const tick = (now) => {
-      const progress = Math.min((now - start) / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3); // easeOutCubic
-      const current = Math.floor(eased * target);
-      el.textContent = current.toLocaleString('es-MX') + suffix;
-      if (progress < 1) {
-        requestAnimationFrame(tick);
-      } else {
-        el.textContent = target.toLocaleString('es-MX') + suffix;
-        el.classList.remove('counting');
-      }
-    };
-    requestAnimationFrame(tick);
-  };
-
-  if ('IntersectionObserver' in window && counters.length) {
-    const cio = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          runCounter(entry.target);
-          cio.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.4 });
-    counters.forEach(el => cio.observe(el));
-  } else {
-    counters.forEach(runCounter);
-  }
-
-  // ---------- calculadora hipotecaria ----------
-  const calcEls = {
-    valor:    $('#valor-inmo'),
-    eng:      $('#enganche-porc'),
-    tasa:     $('#tasa-anual'),
-    plazo:    $('#plazo-anos'),
-    monto:    $('#monto-credito'),
-    hipoteca: $('#pago-hipoteca'),
-    seguros:  $('#seguros-comisiones'),
-    mensual:  $('#pago-mensual'),
-    total:    $('#total-pagado')
-  };
-
-  const SEGURO_POR_MILLON = 2000; // MXN mensuales por cada 1,000,000 de crédito
-
-  // Formateo con comas para el input de valor inmueble
-  if (calcEls.valor) {
-    calcEls.valor.addEventListener('input', () => {
-      const raw = calcEls.valor.value.replace(/[^\d]/g, '');
-      const num = parseInt(raw, 10);
-      calcEls.valor.value = raw ? num.toLocaleString('es-MX') : '';
-    });
-  }
-
-  const calcular = () => {
-    if (!calcEls.valor) return;
-    const valor = Math.max(0, parseFloat(calcEls.valor.value.replace(/,/g, '')) || 0);
-    const engPorc = Math.min(100, Math.max(0, parseFloat(calcEls.eng.value) || 0));
-    const tasaAnual = Math.max(0, parseFloat(calcEls.tasa.value) || 0);
-    const plazoAnos = parseInt(calcEls.plazo.value, 10) || 15;
-
-    const monto = valor * (1 - engPorc / 100);
-    const n = plazoAnos * 12;
-    const i = (tasaAnual / 100) / 12;
-
-    let pagoHipoteca;
-    if (i === 0) {
-      pagoHipoteca = n > 0 ? monto / n : 0;
-    } else {
-      pagoHipoteca = monto * (i * Math.pow(1 + i, n)) / (Math.pow(1 + i, n) - 1);
-    }
-    if (!isFinite(pagoHipoteca) || pagoHipoteca < 0) pagoHipoteca = 0;
-
-    const segurosComisiones = (monto / 1_000_000) * SEGURO_POR_MILLON;
-    const pagoMensual = pagoHipoteca + segurosComisiones;
-    const totalPagado = pagoMensual * n;
-
-    calcEls.monto.textContent    = fmtMXN.format(monto);
-    if (calcEls.hipoteca) calcEls.hipoteca.textContent = fmtMXN.format(pagoHipoteca);
-    if (calcEls.seguros)  calcEls.seguros.textContent  = fmtMXN.format(segurosComisiones);
-    calcEls.mensual.textContent  = fmtMXN.format(pagoMensual);
-    calcEls.total.textContent    = fmtMXN.format(totalPagado);
-
-    // Guarda los últimos valores para el PDF
-    calcEls.valor._lastCalc = { valor, engPorc, tasaAnual, plazoAnos, monto, pagoHipoteca, segurosComisiones, pagoMensual, totalPagado };
-  };
-
-  ['valor', 'eng', 'tasa', 'plazo'].forEach(k => {
-    if (calcEls[k]) calcEls[k].addEventListener('input', calcular);
-  });
-  calcular();
-
-  // ---------- descarga PDF cotización ----------
-  const btnPdf = $('#btn-descargar-pdf');
-  if (btnPdf) {
-    btnPdf.addEventListener('click', () => {
-      const d = calcEls.valor._lastCalc;
-      if (!d) return;
-      const { jsPDF } = window.jspdf;
-      const doc = new jsPDF({ unit: 'mm', format: 'a4' });
-      const azul = [10, 31, 61];
-      const dorado = [212, 175, 55];
-      const gris = [248, 249, 252];
-
-      // Encabezado
-      doc.setFillColor(...azul);
-      doc.rect(0, 0, 210, 32, 'F');
-      doc.setTextColor(255, 255, 255);
-      doc.setFontSize(20);
-      doc.setFont('helvetica', 'bold');
-      doc.text('Luis Valadés · Bróker Hipotecario', 14, 14);
-      doc.setFontSize(10);
-      doc.setFont('helvetica', 'normal');
-      doc.text('Certificado AHMEX · Respaldado por Creditaria', 14, 21);
-      doc.text('Tel: +52 55 6887 9806', 14, 27);
-
-      // Título
-      doc.setTextColor(...azul);
-      doc.setFontSize(15);
-      doc.setFont('helvetica', 'bold');
-      doc.text('Cotización Hipotecaria Estimada', 14, 44);
-      doc.setFontSize(9);
-      doc.setFont('helvetica', 'normal');
-      doc.setTextColor(120, 120, 120);
-      doc.text(`Generada el ${new Date().toLocaleDateString('es-MX', { day: '2-digit', month: 'long', year: 'numeric' })}`, 14, 50);
-
-      // Parámetros de entrada
-      doc.setFillColor(...gris);
-      doc.roundedRect(14, 55, 182, 34, 3, 3, 'F');
-      doc.setTextColor(...azul);
-      doc.setFontSize(10);
-      doc.setFont('helvetica', 'bold');
-      doc.text('Datos ingresados', 20, 63);
-      doc.setFont('helvetica', 'normal');
-      doc.setFontSize(9);
-      const fmt = v => fmtMXN.format(v);
-      doc.text(`Valor del inmueble:  ${fmt(d.valor)}`, 20, 70);
-      doc.text(`Enganche:  ${d.engPorc}%  (${fmt(d.valor * d.engPorc / 100)})`, 20, 76);
-      doc.text(`Tasa anual:  ${d.tasaAnual}%`, 110, 70);
-      doc.text(`Plazo:  ${d.plazoAnos} años`, 110, 76);
-
-      // Resultados
-      const rows = [
-        ['Monto del crédito',              fmt(d.monto)],
-        ['Pago hipoteca (capital + interés)', fmt(d.pagoHipoteca)],
-        ['Seguros y comisiones estimados', fmt(d.segurosComisiones)],
-        ['PAGO MENSUAL ESTIMADO',          fmt(d.pagoMensual)],
-        ['Total pagado al final del plazo', fmt(d.totalPagado)],
-      ];
-
-      let y = 98;
-      rows.forEach(([label, valor], i) => {
-        const esDestacado = i === 3;
-        if (esDestacado) {
-          doc.setFillColor(...dorado);
-          doc.roundedRect(14, y - 5, 182, 14, 2, 2, 'F');
-          doc.setTextColor(10, 31, 61);
-          doc.setFont('helvetica', 'bold');
-        } else {
-          doc.setFillColor(i % 2 === 0 ? 255 : 248, i % 2 === 0 ? 255 : 249, i % 2 === 0 ? 255 : 252);
-          doc.roundedRect(14, y - 5, 182, 12, 2, 2, 'F');
-          doc.setTextColor(60, 60, 60);
-          doc.setFont('helvetica', 'normal');
-        }
-        doc.setFontSize(esDestacado ? 11 : 9.5);
-        doc.text(label, 20, y + 2);
-        doc.setFont('helvetica', 'bold');
-        doc.text(valor, 196 - doc.getTextWidth(valor), y + 2);
-        y += esDestacado ? 16 : 14;
-      });
-
-      // Disclaimer
-      doc.setFontSize(8);
-      doc.setTextColor(150, 150, 150);
-      doc.setFont('helvetica', 'italic');
-      doc.text('* Cálculo estimado con fines informativos. Las condiciones reales están sujetas a aprobación de crédito.', 14, y + 8);
-      doc.text('  Tasas, seguros y comisiones pueden variar según la institución financiera.', 14, y + 13);
-
-      // Pie
-      doc.setFillColor(...azul);
-      doc.rect(0, 282, 210, 15, 'F');
-      doc.setTextColor(255, 255, 255);
-      doc.setFontSize(8);
-      doc.setFont('helvetica', 'normal');
-      doc.text('luisvaladesbroker.com  ·  wa.me/5215568879806', 105, 291, { align: 'center' });
-
-      doc.save('Cotizacion-Hipotecaria-LuisValades.pdf');
-    });
-  }
-
-  // ---------- formulario de contacto ----------
-  const form = $('#contactForm');
-  const exito = $('#exito-mensaje');
-
-  const setError = (field, hasError) => {
-    field.classList.toggle('input-error', hasError);
-  };
-
-  if (form) {
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      let valid = true;
-
-      const nombre   = form.querySelector('input[name="nombre"]');
-      const telefono = form.querySelector('input[name="telefono"]');
-      const email    = form.querySelector('input[name="email"]');
-      const tipo     = form.querySelector('select[name="tipo-credito"]');
-      const mensaje  = form.querySelector('textarea[name="mensaje"]');
-
-      if (!nombre.value.trim()) { setError(nombre, true); valid = false; } else setError(nombre, false);
-
-      const telOk = /^[0-9]{10,12}$/.test(telefono.value.trim());
-      setError(telefono, !telOk); if (!telOk) valid = false;
-
-      const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim());
-      setError(email, !emailOk); if (!emailOk) valid = false;
-
-      if (!tipo.value) { setError(tipo, true); valid = false; } else setError(tipo, false);
-      if (!mensaje.value.trim()) { setError(mensaje, true); valid = false; } else setError(mensaje, false);
-
-      if (!valid) return;
-
-      if (exito) {
-        exito.classList.add('show');
-        setTimeout(() => exito.classList.remove('show'), 6000);
-      }
-      form.reset();
-    });
-
-    form.querySelectorAll('input, select, textarea').forEach(el => {
-      el.addEventListener('input', () => setError(el, false));
-      el.addEventListener('change', () => setError(el, false));
-    });
-  }
-
-  // ---------- smooth scroll offset para navbar sticky ----------
+  /* ---------- smooth scroll con offset del nav ---------- */
   $$('a[href^="#"]').forEach(a => {
     a.addEventListener('click', (e) => {
       const id = a.getAttribute('href');
       if (id.length <= 1) return;
-      const target = $(id);
-      if (!target) return;
+      const t = $(id);
+      if (!t) return;
       e.preventDefault();
-      const navH = navbar ? navbar.offsetHeight : 0;
-      const top = target.getBoundingClientRect().top + window.scrollY - navH + 1;
-      window.scrollTo({ top, behavior: 'smooth' });
+      const offset = (nav ? nav.offsetHeight : 0) + 8;
+      window.scrollTo({ top: t.getBoundingClientRect().top + window.scrollY - offset, behavior: 'smooth' });
     });
   });
+
+  /* ============================================================
+     CALCULADORA HIPOTECARIA
+     ============================================================ */
+  const calc = {
+    valor:    $('#valor'),
+    valorVal: $('#valorVal'),
+    tasa:     $('#tasa'),
+    tasaVal:  $('#tasaVal'),
+    chips:    $$('.chip[data-plazo]'),
+    rHip:     $('#rHip'),
+    rSeg:     $('#rSeg'),
+    rTotal:   $('#rTotal'),
+    rMensual: $('#rMensual'),
+  };
+  let plazo = 15;
+
+  const parseValor = () => {
+    if (!calc.valor) return 0;
+    return parseInt(calc.valor.value, 10) || 0;
+  };
+
+  const compute = () => {
+    if (!calc.valor) return;
+    const monto = parseValor();
+    const tasaAnual = parseFloat(calc.tasa.value) || 0;
+
+    if (calc.valorVal) calc.valorVal.textContent = fmtMXN.format(monto);
+    if (calc.tasaVal)  calc.tasaVal.textContent  = tasaAnual.toFixed(1) + '%';
+
+    const n = plazo * 12;
+    const i = (tasaAnual / 100) / 12;
+
+    let pagoHip;
+    if (i === 0) pagoHip = n > 0 ? monto / n : 0;
+    else pagoHip = monto * (i * Math.pow(1 + i, n)) / (Math.pow(1 + i, n) - 1);
+    if (!isFinite(pagoHip) || pagoHip < 0) pagoHip = 0;
+
+    const seguros = (monto / 1_000_000) * 2000;
+    const mensual = pagoHip + seguros;
+    const total   = mensual * n;
+
+    if (calc.rHip)     calc.rHip.textContent     = fmtMXN.format(pagoHip);
+    if (calc.rSeg)     calc.rSeg.textContent     = fmtMXN.format(seguros);
+    if (calc.rTotal)   calc.rTotal.textContent   = fmtMXN.format(total);
+    if (calc.rMensual) calc.rMensual.textContent = fmtMXN.format(mensual);
+  };
+
+  [calc.valor, calc.tasa].forEach(el => el && el.addEventListener('input', compute));
+  calc.chips.forEach(c => {
+    c.addEventListener('click', () => {
+      calc.chips.forEach(x => x.classList.remove('is-active'));
+      c.classList.add('is-active');
+      plazo = parseInt(c.dataset.plazo, 10) || 15;
+      compute();
+    });
+  });
+  compute();
+
+  /* ============================================================
+     FAQ ACCORDION (single open)
+     ============================================================ */
+  $$('.faq__item').forEach(item => {
+    const btn = item.querySelector('.faq__q');
+    if (!btn) return;
+    btn.addEventListener('click', () => {
+      const willOpen = !item.classList.contains('is-open');
+      $$('.faq__item.is-open').forEach(other => {
+        if (other !== item) {
+          other.classList.remove('is-open');
+          const ob = other.querySelector('.faq__q');
+          if (ob) ob.setAttribute('aria-expanded', 'false');
+        }
+      });
+      item.classList.toggle('is-open', willOpen);
+      btn.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+    });
+  });
+
+  /* ============================================================
+     ANAQUEL TABS · master-detail switcher
+     ============================================================ */
+  $$('.anaquel').forEach(anaquel => {
+    const tabs = $$('.anaquel__tab', anaquel);
+    const panels = $$('.apan', anaquel);
+    if (!tabs.length || !panels.length) return;
+
+    const showPanel = (targetId) => {
+      panels.forEach(p => {
+        const isTarget = p.id === targetId;
+        if (isTarget) {
+          p.hidden = false;
+          p.classList.add('is-active');
+          if (window.gsap && !reducedMotion) {
+            gsap.fromTo(p,
+              { autoAlpha: 0, y: 18 },
+              { autoAlpha: 1, y: 0, duration: .55, ease: 'power3.out',
+                onStart: () => p.removeAttribute('hidden') }
+            );
+            const items = p.querySelectorAll('.apan__stat, .apan__checks li');
+            if (items.length) {
+              gsap.fromTo(items,
+                { autoAlpha: 0, y: 12 },
+                { autoAlpha: 1, y: 0, duration: .4, stagger: .05, ease: 'power2.out', delay: .15 }
+              );
+            }
+          }
+        } else {
+          p.classList.remove('is-active');
+          p.hidden = true;
+        }
+      });
+    };
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const target = tab.dataset.target;
+        if (!target) return;
+        if (tab.classList.contains('is-active')) return;
+
+        tabs.forEach(t => {
+          t.classList.remove('is-active');
+          t.setAttribute('aria-selected', 'false');
+          const arrow = t.querySelector('.anaquel__tab-arrow');
+          if (arrow) arrow.classList.remove('is-rot');
+        });
+        tab.classList.add('is-active');
+        tab.setAttribute('aria-selected', 'true');
+        const arrow = tab.querySelector('.anaquel__tab-arrow');
+        if (arrow) arrow.classList.add('is-rot');
+        showPanel(target);
+      });
+      tab.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          tab.click();
+        }
+      });
+    });
+  });
+
+  /* ============================================================
+     MAGNETIC BUTTONS (efecto imán)
+     ============================================================ */
+  if (window.gsap && !reducedMotion) {
+    $$('.magnetic').forEach(btn => {
+      const strength = 0.22;
+      btn.addEventListener('mousemove', (e) => {
+        const r = btn.getBoundingClientRect();
+        const x = (e.clientX - r.left - r.width / 2) * strength;
+        const y = (e.clientY - r.top - r.height / 2) * strength;
+        gsap.to(btn, { x, y, duration: .4, ease: 'power3.out', overwrite: 'auto' });
+      });
+      btn.addEventListener('mouseleave', () => {
+        gsap.to(btn, { x: 0, y: 0, duration: .6, ease: 'elastic.out(1, 0.4)' });
+      });
+    });
+  }
+
+  /* ============================================================
+     COUNTERS (data-count en .metric__num)
+     ============================================================ */
+  const animateCount = (el) => {
+    const target = parseFloat(el.dataset.count || '0');
+    const suffix = el.dataset.suffix || '';
+    const duration = 1800;
+    const start = performance.now();
+    const tick = (now) => {
+      const p = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      const current = Math.floor(eased * target);
+      el.textContent = current.toLocaleString('es-MX') + suffix;
+      if (p < 1) requestAnimationFrame(tick);
+      else el.textContent = target.toLocaleString('es-MX') + suffix;
+    };
+    requestAnimationFrame(tick);
+  };
+
+  /* ============================================================
+     GSAP SCROLLTRIGGER · reveals
+     ============================================================ */
+  if (window.gsap && window.ScrollTrigger) {
+    gsap.registerPlugin(ScrollTrigger);
+
+    if (!reducedMotion) {
+      // Hero copy stagger
+      const heroCopy = $('.hero__copy');
+      if (heroCopy) {
+        const tl = gsap.timeline({ delay: .15 });
+        tl.from('.hero .eyebrow',  { y: 20, autoAlpha: 0, duration: .8, ease: 'power3.out' })
+          .from('.hero__title',    { y: 40, autoAlpha: 0, duration: 1.1, ease: 'power3.out' }, '-=.5')
+          .from('.hero__sub',      { y: 20, autoAlpha: 0, duration: .8, ease: 'power3.out' }, '-=.7')
+          .from('.hero__cta > *',  { y: 20, autoAlpha: 0, duration: .6, stagger: .1, ease: 'power3.out' }, '-=.4')
+          .from('.hero__trust li', { y: 12, autoAlpha: 0, duration: .5, stagger: .08, ease: 'power2.out' }, '-=.3')
+          .from('.hero__badges img', { y: 12, autoAlpha: 0, duration: .5, stagger: .1, ease: 'power2.out' }, '-=.2');
+      }
+
+      // Hero photo parallax + caption fade
+      const heroPhoto = $('.hero__photo');
+      if (heroPhoto) {
+        gsap.from(heroPhoto.querySelector('img'), { scale: 1.08, autoAlpha: 0, duration: 1.4, ease: 'power3.out', delay: .1 });
+        const cap = heroPhoto.querySelector('.hero__photo-caption');
+        if (cap) gsap.from(cap, { y: 20, autoAlpha: 0, duration: .9, ease: 'power3.out', delay: .8 });
+        const frame = heroPhoto.querySelector('.hero__photo-frame');
+        if (frame) gsap.from(frame, { autoAlpha: 0, duration: 1.2, ease: 'power2.out', delay: 1 });
+        // Subtle parallax
+        gsap.to(heroPhoto.querySelector('img'), {
+          yPercent: -8,
+          scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1.2 }
+        });
+      }
+
+      // Section heads
+      gsap.utils.toArray('.section-head').forEach(head => {
+        gsap.fromTo(head,
+          { y: 40, autoAlpha: 0 },
+          { y: 0, autoAlpha: 1, duration: 1, ease: 'power3.out',
+            scrollTrigger: { trigger: head, start: 'top 88%', once: true } }
+        );
+      });
+
+      // Métricas con counters
+      $$('.metric').forEach((el, i) => {
+        gsap.fromTo(el,
+          { y: 50, autoAlpha: 0 },
+          { y: 0, autoAlpha: 1, duration: .9, ease: 'power3.out', delay: i * .12,
+            scrollTrigger: { trigger: '.metrics__grid', start: 'top 80%', once: true,
+              onEnter: () => {
+                const num = el.querySelector('.metric__num');
+                if (num) animateCount(num);
+              }
+            }
+          }
+        );
+      });
+
+      // Feature cards
+      gsap.utils.toArray('.feature-card').forEach((card, i) => {
+        gsap.fromTo(card,
+          { y: 60, autoAlpha: 0 },
+          { y: 0, autoAlpha: 1, duration: .9, ease: 'power3.out', delay: i * .12,
+            scrollTrigger: { trigger: '.features__grid', start: 'top 85%', once: true } }
+        );
+        const icon = card.querySelector('.feature-card__icon');
+        if (icon) {
+          gsap.fromTo(icon,
+            { scale: .5, rotate: -25, autoAlpha: 0 },
+            { scale: 1, rotate: 0, autoAlpha: 1, duration: .8, ease: 'back.out(1.7)', delay: i * .12 + .15,
+              scrollTrigger: { trigger: '.features__grid', start: 'top 85%', once: true } }
+          );
+        }
+      });
+
+      // Anaqueles
+      gsap.utils.toArray('.anaquel').forEach((card) => {
+        gsap.fromTo(card.querySelector('.anaquel__shell'),
+          { y: 80, autoAlpha: 0, scale: .96 },
+          { y: 0, autoAlpha: 1, scale: 1, duration: 1.2, ease: 'power3.out',
+            scrollTrigger: { trigger: card, start: 'top 85%', once: true } }
+        );
+        const tabs = card.querySelectorAll('.anaquel__tab');
+        if (tabs.length) {
+          gsap.fromTo(tabs,
+            { x: -30, autoAlpha: 0 },
+            { x: 0, autoAlpha: 1, duration: .6, stagger: .08, ease: 'power2.out',
+              scrollTrigger: { trigger: card, start: 'top 75%', once: true } }
+          );
+        }
+        const stats = card.querySelectorAll('.anaquel__statCell');
+        if (stats.length) {
+          gsap.fromTo(stats,
+            { y: 20, autoAlpha: 0 },
+            { y: 0, autoAlpha: 1, duration: .55, stagger: .1, ease: 'back.out(1.5)',
+              scrollTrigger: { trigger: card, start: 'top 70%', once: true } }
+          );
+        }
+      });
+
+      // Timeline zigzag steps
+      gsap.utils.toArray('.timeline__step').forEach((step, i) => {
+        const isEven = (i + 1) % 2 === 0;
+        gsap.fromTo(step,
+          { x: isEven ? 50 : -50, autoAlpha: 0 },
+          { x: 0, autoAlpha: 1, duration: .8, ease: 'power3.out',
+            scrollTrigger: { trigger: step, start: 'top 88%', once: true } }
+        );
+      });
+      const tlCta = $('.timeline__cta');
+      if (tlCta) {
+        gsap.fromTo(tlCta,
+          { y: 20, autoAlpha: 0 },
+          { y: 0, autoAlpha: 1, duration: .8, ease: 'power3.out',
+            scrollTrigger: { trigger: tlCta, start: 'top 92%', once: true } }
+        );
+      }
+
+      // Calc panel
+      const calcPanel = $('.calc__panel');
+      if (calcPanel) {
+        gsap.fromTo(calcPanel,
+          { y: 60, autoAlpha: 0 },
+          { y: 0, autoAlpha: 1, duration: 1, ease: 'power3.out',
+            scrollTrigger: { trigger: '.calc', start: 'top 75%', once: true } }
+        );
+      }
+
+      // Bio
+      const bioPhoto = $('.bio__photo');
+      const bioText = $('.bio__text');
+      if (bioPhoto) gsap.fromTo(bioPhoto, { x: -40, autoAlpha: 0 }, { x: 0, autoAlpha: 1, duration: 1, ease: 'power3.out', scrollTrigger: { trigger: '.bio', start: 'top 75%', once: true } });
+      if (bioText) gsap.fromTo(bioText, { x: 40, autoAlpha: 0 }, { x: 0, autoAlpha: 1, duration: 1, ease: 'power3.out', scrollTrigger: { trigger: '.bio', start: 'top 75%', once: true } });
+      gsap.fromTo('.bio__pillars > div', { y: 20, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: .55, stagger: .1, ease: 'power2.out', scrollTrigger: { trigger: '.bio__pillars', start: 'top 85%', once: true } });
+
+      // Quotes
+      gsap.utils.toArray('.quote').forEach((q, i) => {
+        gsap.fromTo(q,
+          { y: 40, autoAlpha: 0 },
+          { y: 0, autoAlpha: 1, duration: .8, ease: 'power3.out', delay: i * .12,
+            scrollTrigger: { trigger: '.testimonios__grid', start: 'top 80%', once: true } }
+        );
+      });
+
+      // FAQ items
+      gsap.fromTo('.faq__item',
+        { y: 30, autoAlpha: 0 },
+        { y: 0, autoAlpha: 1, duration: .65, stagger: .08, ease: 'power3.out',
+          scrollTrigger: { trigger: '.faq__list', start: 'top 85%', once: true } }
+      );
+
+      // CTA final
+      const ctaFinal = $('.cta-final');
+      if (ctaFinal) {
+        gsap.fromTo(ctaFinal.querySelectorAll('h2, p, .btn, .eyebrow'),
+          { y: 30, autoAlpha: 0 },
+          { y: 0, autoAlpha: 1, duration: .8, stagger: .12, ease: 'power3.out',
+            scrollTrigger: { trigger: ctaFinal, start: 'top 80%', once: true } }
+        );
+      }
+    } else {
+      // Sin animaciones · counters instantáneos
+      $$('.metric__num').forEach(el => {
+        const t = parseFloat(el.dataset.count || '0');
+        const s = el.dataset.suffix || '';
+        el.textContent = t.toLocaleString('es-MX') + s;
+      });
+    }
+  } else {
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver(es => es.forEach(e => {
+        if (e.isIntersecting) { animateCount(e.target); io.unobserve(e.target); }
+      }), { threshold: .4 });
+      $$('.metric__num').forEach(el => io.observe(el));
+    }
+  }
 
 })();

@@ -1,39 +1,61 @@
-# Luis Valadés | Bróker Hipotecario - Landing Page
+﻿# Luis Valadés — Bróker Hipotecario CDMX
 
-Bienvenido al repositorio de la landing page oficial de **Luis Valadés**, bróker hipotecario certificado AHMEX. Esta página web está diseñada para captar prospectos (leads) y ofrecer información clara sobre servicios financieros, hipotecarios y créditos PyME en México.
+Landing page oficial de **Luis Valadés**, Bróker Hipotecario certificado AHMEX en Ciudad de México.
 
-## 🚀 Características Principales
+> Estructuro tu crédito hipotecario o PyME en CDMX comparando +15 bancos. Pre-calificación gratuita en 30 minutos.
 
-*   **Diseño Moderno y Responsivo:** Interfaz atractiva, profesional y funcional adaptada a dispositivos móviles.
-*   **Calculadora de Hipotecas Integrada:** Herramienta interactiva para que los usuarios puedan estimar sus pagos mensuales, monto del crédito y seguros/comisiones.
-*   **Integración Directa con WhatsApp:** Botones flotantes y accesos directos recurrentes para contacto inmediato con el asesor en un solo clic.
-*   **Captación de Leads (Formulario de Contacto):** Sección dedicada a recibir solicitudes.
-*   **Sección Educativa (Videos):** Galería interactiva con videos informativos de YouTube incrustados para aportar valor a los visitantes.
-*   **SEO Básico y Metadatos:** Etiquetas semánticas y elementos Open Graph listos para compartir la URL en redes sociales.
+## Stack
 
-## 💻 Tecnologías Utilizadas
+- HTML5 semántico + Schema.org (LocalBusiness, FAQPage, AggregateRating)
+- CSS3 · Design system Davincci (azul electric + navy + cream)
+- Vanilla JS + GSAP (ScrollTrigger) + Vanilla-Tilt
+- Deploy: Vercel
+- Fuentes: Oswald + Karla + Bebas Neue (Google Fonts)
 
-*   **Front-end:** HTML5
-*   **Estilos:** CSS3 Vanilla (Animaciones modernas, diseño responsivo sin librerías externas)
-*   **Lógica e Interactividad:** JavaScript Vanilla (Menú móvil, cálculos dinámicos e interacciones de revelado de elementos en el scroll)
-*   **Tipografía e Iconos:** Google Fonts (Poppins, Playfair Display) y FontAwesome 6.
+## Estructura
 
-## 🛠️ Estructura del Proyecto
+\\\
+.
+├── index.html            ← Landing (14 secciones)
+├── styles.css            ← Design system Davincci
+├── script.js             ← GSAP + calc + FAQ + tabs
+├── vercel.json           ← Config Vercel (cache headers)
+├── fotos/                ← Fotos del bróker
+├── assets/
+│   ├── logos/            ← 25 logos bancos (transparentes)
+│   ├── complementos/     ← AHMEX, Creditaria, ESR, Sello Confianza
+│   └── cards/            ← Imágenes productos hipotecarios y PyME
+└── _archive/             ← Sitio anterior (V1)
+\\\
 
-*   `index.html`: Archivo base principal con la estructura de la landing page.
-*   `styles.css`: Estilos de todo el sitio, organizados por variables CSS, componentes locales y media queries.
-*   `script.js`: Funcionalidad interactiva (sticky navbar, calculadora hipotecaria y animaciones).
-*   `fotos/`: Directorio de archivos multimedia locales.
+## Secciones
 
-## 🧑‍💼 Sobre el Negocio
+1. Nav sticky glass
+2. Hero split editorial (foto + texto)
+3. Strip 2 sliders bancos
+4. Features 3 cards "Por qué yo"
+5. Métricas con watermark
+6. Anaquel 01 · Crédito Hipotecario
+7. Anaquel 02 · Crédito PyME
+8. Timeline 5 pasos
+9. Calculadora con sliders
+10. Sobre Luis Valadés
+11. Testimonios
+12. FAQ acordeón (Schema FAQPage)
+13. CTA final
+14. Footer
 
-Luis Valadés opera bajo un esquema respaldado por **Creditaria** y con certificación de la AHMEX (Asociación de Brokers Hipotecarios). Ofrece servicios gratuitos comparando más de 15 instituciones bancarias y financieras. 
+## SEO
 
-**Servicios principales:**
-*   Hipoteca Residencial
-*   Hipoteca para Mexicanos en el extranjero (Economía Americana)
-*   Terreno + Construcción / Remodelación
-*   Crédito PyME y Capital de Trabajo
+- Title + meta optimizados para **'Bróker Hipotecario CDMX'**
+- Schema.org LocalBusiness con AggregateRating 4.9 (127 reseñas)
+- FAQPage rich snippets
+- Hreflang es-MX
+- Geo tags CDMX
 
----
-*Diseñado para brindar confianza y generar una excelente primera impresión a futuros clientes.*
+## Contacto
+
+- **WhatsApp:** [+52 55 6887 9806](https://wa.me/5215568879806)
+- **Email:** luis@crediexpres.com
+- **Certificación:** AHMEX · Asociación Hipotecaria Mexicana
+- **Respaldo:** Creditaria S.A. de C.V.
