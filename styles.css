@@ -2031,6 +2031,98 @@ section { position: relative; }
   100% { transform: scale(1.7); opacity: 0; }
 }
 
+/* ============================================================
+   DEPLOY TEST · PyME en rojo intenso (verificación visual)
+   ============================================================ */
+.deploy-test {
+  color: #FF0000 !important;
+  font-weight: 900 !important;
+  -webkit-text-fill-color: #FF0000 !important;
+  background: none !important;
+}
+
+/* ============================================================
+   MOBILE OVERFLOW FIXES · defensivo agresivo
+   ============================================================ */
+.hero, .hero__photo, .hero__content,
+.anaquel, .anaquel__core, .anaquel__shell,
+.timeline, .calc, .bio, .testimonios, .faq, .cta-final,
+.footer, .features, .metrics, .strip {
+  max-width: 100vw;
+  overflow-x: clip;
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding-inline: 1rem;
+  }
+  .hero__photo-caption {
+    padding: 1.1rem 1.2rem;
+  }
+  .hero__photo-eyebrow {
+    font-size: .72rem;
+    letter-spacing: .14em;
+    padding: .4rem .7rem;
+    margin-bottom: .35rem;
+  }
+  .hero__photo-caption strong { font-size: 1.2rem; }
+  .hero__photo-role { font-size: .78rem; }
+
+  /* Hero content mobile */
+  .hero__content {
+    padding: 2rem 1rem 2.5rem;
+  }
+  .hero__title { max-width: 100%; font-size: clamp(26px, 7vw, 38px); }
+  .hero__sub { max-width: 100%; font-size: .98rem; }
+  .hero__cta { gap: .7rem; }
+  .hero__cta .btn { padding: .9rem 1.2rem; font-size: .92rem; }
+  .hero__trust { max-width: 100%; gap: .6rem 1rem; }
+  .hero__trust li { font-size: .8rem; }
+  .hero__badges { max-width: 100%; gap: .8rem 1rem; }
+  .hero__badges img { height: clamp(36px, 8vw, 50px); }
+
+  /* Anaqueles mobile */
+  .anaquel__shell { padding: .7rem; }
+  .anaquel__core { padding: 1.4rem 1.1rem; }
+  .anaquel__num { font-size: 2.8rem; }
+  .anaquel__title { font-size: 1.55rem; }
+  .anaquel__tab { grid-template-columns: 52px 1fr auto; padding: .65rem; gap: .8rem; }
+  .anaquel__tab-thumb { width: 52px; height: 52px; }
+  .anaquel__tab-title { font-size: 1rem; }
+  .anaquel__tab-sub { font-size: .78rem; }
+  .anaquel__tab .pill { display: none; }
+  .anaquel__tab-arrow { display: none; }
+  .anaquel__statCell strong { font-size: 1.4rem; }
+  .anaquel__statCell span { font-size: .65rem; }
+  .apan { padding: .9rem; }
+  .apan__body { padding: 1.1rem .2rem .2rem; }
+  .apan__body h4 { font-size: 1.3rem; }
+  .apan__stat strong { font-size: 1.2rem; }
+
+  /* Calc mobile */
+  .calc__panel { padding: 1.25rem; }
+  .field__input input { font-size: 1.2rem; }
+  .field label strong { font-size: 1rem; }
+  .field__range-meta { font-size: .7rem; }
+  .calc__row--hero strong { font-size: 1.4rem; }
+
+  /* Bio mobile */
+  .bio__photo figcaption {
+    padding: 1.1rem 1.2rem;
+    font-size: .72rem;
+    letter-spacing: .12em;
+  }
+
+  /* FAQ mobile */
+  .faq__q { padding: 1rem 1.1rem; font-size: 1rem; }
+  .faq__a > div { padding: 0 1.1rem 1.1rem; font-size: .92rem; }
+
+  /* Timeline mobile más compacto */
+  .timeline__step { padding: 1rem 1.1rem; }
+  .timeline__body h3 { font-size: 1.05rem; }
+  .timeline__body p { font-size: .82rem; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: .01ms !important;
