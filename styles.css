@@ -623,9 +623,20 @@ section { position: relative; }
 }
 
 @media (max-width: 980px) {
-  .hero { grid-template-columns: 1fr; min-height: auto; }
-  .hero__photo { min-height: 60vh; aspect-ratio: 4/5; }
-  .hero__content { padding: 2.5rem clamp(1.5rem, 4vw, 2.5rem) 2.5rem; }
+  .hero {
+    grid-template-columns: 1fr;
+    min-height: auto;
+    display: flex;
+    flex-direction: column;
+  }
+  /* CONTENT (texto) PRIMERO, foto después */
+  .hero__content { order: 1; padding: 2.5rem clamp(1.5rem, 4vw, 2.5rem) 2.5rem; }
+  .hero__photo {
+    order: 2;
+    min-height: auto;
+    aspect-ratio: 16/10;
+  }
+  .hero__photo img { object-position: center 25%; }
 }
 
 /* ============================================================
@@ -2134,8 +2145,9 @@ img, video, iframe { max-width: 100% !important; height: auto; }
   .hero__cta .btn { padding: .95rem 1.3rem; font-size: 1rem; }
   .hero__trust { max-width: 100%; gap: .6rem 1rem; }
   .hero__trust li { font-size: .88rem; }
-  .hero__badges { gap: 1.8rem; }
-  .hero__badges img { height: clamp(48px, 11vw, 64px); max-width: 140px; }
+  .hero__badges { gap: 2.5rem; }
+  .hero__badges img { height: clamp(68px, 16vw, 92px); max-width: 180px; }
+  .hero__badges-wrap { padding-top: 1.6rem; }
 
   /* Anaqueles mobile */
   .anaquel__shell { padding: .7rem; }
