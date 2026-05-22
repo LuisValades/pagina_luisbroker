@@ -427,10 +427,7 @@ section { position: relative; }
 }
 
 @media (max-width: 980px) {
-  /* === TEST VISUAL: NAV ROJO BRILLANTE === */
-  .nav { background: #FF0000 !important; padding: .6rem 0 !important; }
-  .nav.is-scrolled { background: #FF0000 !important; }
-  /* ===================================== */
+  .nav { padding: .6rem 0; }
 
   .nav__inner {
     display: flex !important;
@@ -459,7 +456,6 @@ section { position: relative; }
     overflow: hidden !important;
     text-overflow: ellipsis !important;
     display: block !important;
-    color: #FFFFFF !important;
   }
   .brand__role {
     font-size: .55rem !important;
@@ -469,7 +465,6 @@ section { position: relative; }
     overflow: hidden !important;
     text-overflow: ellipsis !important;
     display: block !important;
-    color: rgba(255,255,255,.8) !important;
   }
   .nav__menu {
     position: fixed;
@@ -491,7 +486,6 @@ section { position: relative; }
     padding: 6px !important;
     margin-left: 0 !important;
   }
-  .nav__toggle span { background: #FFFFFF !important; }
 }
 
 @media (max-width: 480px) {
@@ -2114,15 +2108,7 @@ section { position: relative; }
   100% { transform: scale(1.7); opacity: 0; }
 }
 
-/* ============================================================
-   DEPLOY TEST · PyME en rojo intenso (verificación visual)
-   ============================================================ */
-.deploy-test {
-  color: #FF0000 !important;
-  font-weight: 900 !important;
-  -webkit-text-fill-color: #FF0000 !important;
-  background: none !important;
-}
+/* (deploy test removed · production ready) */
 
 /* ============================================================
    MOBILE OVERFLOW · BLOQUEO EXTREMO con !important
