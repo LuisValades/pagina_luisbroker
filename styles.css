@@ -427,20 +427,57 @@ section { position: relative; }
 }
 
 @media (max-width: 980px) {
-  .nav { padding: .7rem 0; }
-  .nav__inner { gap: .8rem; }
-  .brand { gap: .65rem; min-width: 0; flex: 1 1 auto; align-items: center; }
-  .brand__text { min-width: 0; overflow: hidden; }
-  .brand__name { font-size: .95rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .brand__role { font-size: .58rem; letter-spacing: .1em; margin-top: .2rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .brand__monogram { width: 38px; height: 38px; font-size: 1.1rem; border-radius: 9px; flex-shrink: 0; }
+  /* === TEST VISUAL: NAV ROJO BRILLANTE === */
+  .nav { background: #FF0000 !important; padding: .6rem 0 !important; }
+  .nav.is-scrolled { background: #FF0000 !important; }
+  /* ===================================== */
+
+  .nav__inner {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: .6rem !important;
+    width: 100% !important;
+  }
+  .brand {
+    display: flex !important;
+    align-items: center !important;
+    gap: .6rem !important;
+    flex: 1 1 0 !important;
+    min-width: 0 !important;
+  }
+  .brand__monogram {
+    width: 36px !important; height: 36px !important;
+    font-size: 1rem !important;
+    flex: 0 0 36px !important;
+    border-radius: 9px !important;
+  }
+  .brand__text { min-width: 0 !important; overflow: hidden !important; flex: 1 1 auto !important; }
+  .brand__name {
+    font-size: .92rem !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    display: block !important;
+    color: #FFFFFF !important;
+  }
+  .brand__role {
+    font-size: .55rem !important;
+    letter-spacing: .08em !important;
+    margin-top: .15rem !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    display: block !important;
+    color: rgba(255,255,255,.8) !important;
+  }
   .nav__menu {
     position: fixed;
     inset: 56px 0 auto 0;
     flex-direction: column;
     gap: 0;
     background: var(--paper);
-    padding: 1.5rem 1.5rem;
+    padding: 1.5rem;
     transform: translateY(-110%);
     transition: transform .45s var(--ease);
     box-shadow: 0 20px 40px rgba(9,12,20,.12);
@@ -448,15 +485,20 @@ section { position: relative; }
   .nav__menu.is-open { transform: translateY(0); }
   .nav__menu a { padding: 1rem 0; border-bottom: 1px solid var(--line); font-size: 1.05rem; }
   .nav__cta { display: none; }
-  .nav__toggle { display: flex; margin-left: auto; padding: 6px; flex-shrink: 0; }
+  .nav__toggle {
+    display: flex !important;
+    flex: 0 0 auto !important;
+    padding: 6px !important;
+    margin-left: 0 !important;
+  }
+  .nav__toggle span { background: #FFFFFF !important; }
 }
 
 @media (max-width: 480px) {
-  .nav__inner { gap: .55rem; }
-  .brand { gap: .55rem; }
-  .brand__monogram { width: 34px; height: 34px; font-size: 1rem; }
-  .brand__name { font-size: .9rem; }
-  .brand__role { font-size: .54rem; }
+  .nav__inner { gap: .5rem !important; }
+  .brand__monogram { width: 32px !important; height: 32px !important; flex: 0 0 32px !important; font-size: .9rem !important; }
+  .brand__name { font-size: .85rem !important; }
+  .brand__role { font-size: .52rem !important; }
 }
 
 /* ============================================================
