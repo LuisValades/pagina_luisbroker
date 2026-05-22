@@ -1523,7 +1523,8 @@ section { position: relative; }
   width: 100%;
   aspect-ratio: 4/5;
   object-fit: cover;
-  object-position: center 20%;
+  object-position: center 75%;
+  filter: contrast(1.02) saturate(.92) brightness(.96);
 }
 .bio__photo figcaption {
   position: absolute;
@@ -1965,8 +1966,29 @@ section { position: relative; }
 }
 
 @media (max-width: 720px) {
-  .footer__grid { grid-template-columns: 1fr 1fr; }
-  .footer__brand { grid-column: 1 / -1; }
+  .footer { padding: 2.5rem 0 1.5rem; }
+  .footer__grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 1.8rem;
+    padding-bottom: 2rem;
+  }
+  .footer__brand {
+    grid-column: 1 / -1;
+    margin-bottom: 0;
+  }
+  .footer__brand p { font-size: .82rem; max-width: 100%; }
+  .footer h4 { font-size: .9rem; margin-bottom: .8rem; letter-spacing: .18em; }
+  .footer ul { gap: .45rem; }
+  .footer ul a, .footer ul li { font-size: .82rem; }
+  .socials { gap: .55rem; margin-top: .9rem; }
+  .socials a { width: 34px; height: 34px; font-size: .92rem; }
+  .footer__bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    padding-top: 1.2rem;
+    font-size: .72rem;
+    gap: .4rem;
+  }
 }
 
 /* ============================================================
