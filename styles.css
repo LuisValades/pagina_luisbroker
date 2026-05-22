@@ -63,19 +63,26 @@ html {
   -webkit-text-size-adjust: 100%;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  font-size: 19.5px;
+  font-size: 17px;
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100%;
+}
+@media (max-width: 980px) {
+  html { font-size: 15.5px; }
 }
 @media (max-width: 600px) {
-  html { font-size: 16.5px; } /* mobile · base un poco más chica para evitar overflow */
+  html { font-size: 14.5px; }
 }
-html, body {
+body {
   margin: 0;
   padding: 0;
   width: 100%;
-  max-width: 100vw;
+  max-width: 100%;
   overflow-x: hidden;
+  position: relative;
 }
-img { max-width: 100%; }
+img { max-width: 100%; height: auto; }
 body {
   font-family: var(--f-body);
   font-size: 1rem;     /* hereda 18.4px del html */
@@ -2063,8 +2070,14 @@ img, video, iframe { max-width: 100% !important; height: auto; }
   overflow-x: hidden;
 }
 
-/* Watermark RESULTADOS no debe escapar */
+/* Watermark RESULTADOS · oculto en mobile (causa overflow) */
 .watermark { max-width: 100vw; white-space: nowrap; overflow: hidden; }
+@media (max-width: 900px) {
+  .watermark { display: none !important; }
+}
+
+/* Marquee · estricto overflow hidden */
+.marquee, .strip, .metrics, .hero { overflow: hidden !important; }
 
 @media (max-width: 600px) {
   .container {
