@@ -135,14 +135,46 @@ p strong { color: var(--text); font-weight: 700; }
 
 /* CACHE-BUSTER-MARKER · build 2026-05-22-22h59 · containers 1480px sin per-section overrides */
 
-/* FIX confirmado con debug visual: el timeline__list necesita !important
-   porque algun reset invisible le pisa el max-width 760px del bloque
-   original (linea 1365). max-width sin width fijo para no romper mobile. */
+/* === Section internal widths · estetica premium PC ===
+   max-width al elemento interno de cada seccion (NO al .container).
+   Patron descubierto con el debug del timeline: algun reset invisible
+   pisa max-width en algunos elementos, por eso !important + margin auto. */
 .timeline__list {
   max-width: 760px !important;
   margin-left: auto !important;
   margin-right: auto !important;
 }
+.features__grid {
+  max-width: 1280px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+.calc__grid {
+  max-width: 1100px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+.bio__grid {
+  max-width: 1180px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+.testimonios__grid {
+  max-width: 1220px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+.faq__grid {
+  max-width: 920px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+.cta-final__inner {
+  max-width: 920px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+/* Metricas (grid 5-col) y anaquel (master-detail) mantienen el container 1480px porque sus layouts complejos requieren ancho */
 section { position: relative; }
 
 /* ----- EYEBROW ----- */
