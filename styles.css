@@ -2306,6 +2306,12 @@ img, video, iframe { max-width: 100% !important; height: auto; }
   overflow-x: clip !important;
   overflow-x: hidden;
 }
+/* Nav menu reducido a 80% (1184px) — contenido nav centrado */
+.nav__inner {
+  max-width: 1184px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
 
 /* Watermark RESULTADOS · oculto en mobile (causa overflow) */
 .watermark { max-width: 100vw; white-space: nowrap; overflow: hidden; }
