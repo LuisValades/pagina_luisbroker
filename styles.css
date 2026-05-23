@@ -429,7 +429,7 @@ section { position: relative; }
 @media (max-width: 980px) {
   /* Nav sólido NAVY INK en mobile · contraste premium con la foto */
   .nav {
-    padding: 1.1rem 0 1rem !important;
+    padding: 1.8rem 0 1.2rem !important;
     background: var(--ink) !important;
     -webkit-backdrop-filter: none !important;
     backdrop-filter: none !important;
@@ -493,7 +493,7 @@ section { position: relative; }
   }
   .nav__menu {
     position: fixed;
-    inset: 72px 0 auto 0;
+    inset: 88px 0 auto 0;
     flex-direction: column;
     gap: 0;
     background: var(--ink);
