@@ -180,7 +180,18 @@ p strong { color: var(--text); font-weight: 700; }
   margin-left: auto !important;
   margin-right: auto !important;
 }
-/* Anaquel (master-detail) mantiene el container 1480px porque su layout master-detail requiere ancho */
+/* Centrar TODOS los section-head (incluyendo los que tienen modifier --left) */
+.section-head--left {
+  margin-left: auto !important;
+  margin-right: auto !important;
+  text-align: center !important;
+}
+/* Anaquel (master-detail Hipotecario/PyME) reducido a 80% */
+.anaquel__shell {
+  max-width: 1184px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
 section { position: relative; }
 
 /* ----- EYEBROW ----- */
