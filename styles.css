@@ -164,8 +164,9 @@ p strong { color: var(--text); font-weight: 700; }
   margin-left: auto !important;
   margin-right: auto !important;
 }
-.faq__grid {
-  max-width: 920px !important;
+.faq__grid,
+.faq__cols {
+  max-width: 880px !important;
   margin-left: auto !important;
   margin-right: auto !important;
 }
@@ -174,7 +175,12 @@ p strong { color: var(--text); font-weight: 700; }
   margin-left: auto !important;
   margin-right: auto !important;
 }
-/* Metricas (grid 5-col) y anaquel (master-detail) mantienen el container 1480px porque sus layouts complejos requieren ancho */
+.metrics__grid {
+  max-width: 1240px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+/* Anaquel (master-detail) mantiene el container 1480px porque su layout master-detail requiere ancho */
 section { position: relative; }
 
 /* ----- EYEBROW ----- */
