@@ -442,7 +442,7 @@ section { position: relative; }
   }
   .nav .container,
   .nav__inner {
-    padding-inline: 1rem !important;
+    padding-inline: 1.5rem !important;
   }
 
   .nav__inner {
@@ -655,7 +655,7 @@ section { position: relative; }
   gap: 2.8rem;
   align-items: center;
   white-space: nowrap;
-  animation: badges-marquee 14s linear infinite;
+  animation: badges-marquee 8s linear infinite;
 }
 @keyframes badges-marquee {
   from { transform: translateX(0); }
@@ -728,8 +728,8 @@ section { position: relative; }
 }
 @keyframes marquee-l { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 @keyframes marquee-r { from { transform: translateX(-50%); } to { transform: translateX(0); } }
-.marquee__track--ltr { animation: marquee-l 30s linear infinite; }
-.marquee__track--rtl { animation: marquee-r 38s linear infinite; }
+.marquee__track--ltr { animation: marquee-l 18s linear infinite; }
+.marquee__track--rtl { animation: marquee-r 22s linear infinite; }
 .marquee:hover .marquee__track { animation-play-state: paused; }
 
 .marquee img {
