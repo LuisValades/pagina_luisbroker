@@ -2291,10 +2291,18 @@ html, body {
 img, video, iframe { max-width: 100% !important; height: auto; }
 
 .hero, .hero__photo, .hero__content,
-.anaquel, .anaquel__core, .anaquel__shell,
+.anaquel, .anaquel__core,
 .timeline, .calc, .bio, .testimonios, .faq, .cta-final,
 .footer, .features, .metrics, .strip {
   max-width: 100% !important;
+  overflow-x: clip !important;
+  overflow-x: hidden;
+}
+/* anaquel__shell DEBE permitir max-width 1184px (regla del top) — removido del reset */
+.anaquel__shell {
+  max-width: 1184px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
   overflow-x: clip !important;
   overflow-x: hidden;
 }
