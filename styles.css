@@ -127,11 +127,28 @@ p strong { color: var(--text); font-weight: 700; }
 
 /* ----- LAYOUT ----- */
 .container {
-  width: 90%;
+  width: 100%;
   max-width: var(--container);
   margin: 0 auto;
-  padding-inline: clamp(1rem, .6rem + .6vw, 1.5rem);
+  padding-inline: clamp(1.25rem, .8rem + 1.2vw, 2rem);
 }
+
+/* === Per-section widths · acorde a cada seccion === */
+/* Reading-friendly sections (FAQ): narrow */
+.faq > .container { max-width: 980px; }
+/* Calculadora y CTA final: compactas */
+.calc > .container,
+.cta-final > .container { max-width: 1180px; }
+/* Timeline: compacta para que las pills no se estiren */
+.timeline > .container { max-width: 1100px; }
+/* Bio: media */
+.bio > .container { max-width: 1280px; }
+/* Testimonios: media-amplia */
+.testimonials > .container { max-width: 1340px; }
+/* Anaqueles: amplio para master-detail */
+.anaquel > .container,
+.anaqueles > .container { max-width: 1480px; }
+/* Features y Metricas mantienen default 1480px */
 section { position: relative; }
 
 /* ----- EYEBROW ----- */
@@ -2310,12 +2327,21 @@ img, video, iframe { max-width: 100% !important; height: auto; }
   .hero__badges { gap: 2.5rem; }
   .hero__badges img { height: clamp(58px, 14vw, 78px); max-width: 160px; }
 
-  /* Anaqueles mobile */
+  /* Anaqueles mobile · anti-overflow estricto */
+  .anaquel,
+  .anaquel__shell,
+  .anaquel__core,
+  .anaquel__left,
+  .anaquel__right,
+  .anaquel__tabs { max-width: 100% !important; min-width: 0 !important; overflow: hidden !important; box-sizing: border-box !important; }
   .anaquel__shell { padding: .7rem; }
   .anaquel__core { padding: 1.4rem 1.1rem; }
   .anaquel__num { font-size: 2.8rem; }
-  .anaquel__title { font-size: 1.55rem; }
-  .anaquel__tab { grid-template-columns: 52px 1fr auto; padding: .65rem; gap: .8rem; }
+  .anaquel__title { font-size: 1.55rem; word-break: break-word; }
+  .anaquel__tags { max-width: 100%; }
+  .anaquel__tag { font-size: .8rem !important; padding: .35rem .7rem !important; }
+  .anaquel__tab { grid-template-columns: 52px 1fr auto; padding: .65rem; gap: .8rem; min-width: 0 !important; max-width: 100% !important; box-sizing: border-box !important; }
+  .anaquel__tab-title, .anaquel__tab-sub { min-width: 0 !important; overflow: hidden; text-overflow: ellipsis; }
   .anaquel__tab-thumb { width: 52px; height: 52px; }
   .anaquel__tab-title { font-size: 1rem; }
   .anaquel__tab-sub { font-size: .78rem; }
