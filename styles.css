@@ -765,6 +765,8 @@ section { position: relative; }
     width: 100%;
   }
   .hero__photo img { object-position: center 30%; }
+  /* Caption oculto en mobile · el nombre ya esta en el nav y abajo en hero */
+  .hero__photo-caption { display: none !important; }
   .hero__content {
     padding: 2.2rem clamp(1.5rem, 4vw, 2.5rem) 2.5rem;
     width: 100%;
