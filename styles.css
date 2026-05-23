@@ -761,10 +761,10 @@ section { position: relative; }
   /* FOTO PRIMERO (orden DOM normal), texto después */
   .hero__photo {
     min-height: auto;
-    aspect-ratio: 4/3;
+    aspect-ratio: 4/5;
     width: 100%;
   }
-  .hero__photo img { object-position: center 22%; }
+  .hero__photo img { object-position: center 30%; }
   .hero__content {
     padding: 2.2rem clamp(1.5rem, 4vw, 2.5rem) 2.5rem;
     width: 100%;
