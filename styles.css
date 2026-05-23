@@ -133,7 +133,7 @@ p strong { color: var(--text); font-weight: 700; }
   padding-inline: clamp(1.25rem, .8rem + 1.2vw, 2rem);
 }
 
-/* .container ya está en el bloque base con max-width var(--container) = 1480px · sin per-section overrides para mantener consistencia visual */
+/* CACHE-BUSTER-MARKER · build 2026-05-22-22h59 · containers 1480px sin per-section overrides */
 section { position: relative; }
 
 /* ----- EYEBROW ----- */
