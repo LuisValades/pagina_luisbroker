@@ -133,30 +133,7 @@ p strong { color: var(--text); font-weight: 700; }
   padding-inline: clamp(1.25rem, .8rem + 1.2vw, 2rem);
 }
 
-/* === Per-section widths · estética premium PC con márgenes laterales claros === */
-/* Reading-friendly (FAQ): muy angosto */
-.faq > .container { max-width: 920px; }
-/* Calculadora y CTA final: compactas */
-.calc > .container,
-.cta-final > .container { max-width: 1120px; }
-/* Timeline: compacta para que las pills no se estiren */
-.timeline > .container { max-width: 1040px; }
-/* Bio: media */
-.bio > .container { max-width: 1200px; }
-/* Features 3 cards: balanceada, no demasiado ancha */
-.features > .container { max-width: 1280px; }
-/* Métricas: media-amplia (5 columnas con watermark) */
-.metrics > .container { max-width: 1340px; }
-/* Testimonios: media-amplia */
-.testimonials > .container { max-width: 1300px; }
-/* Anaqueles: amplio para master-detail */
-.anaquel > .container,
-.anaqueles > .container { max-width: 1400px; }
-/* Footer: default 1480px (mantiene amplio para 4 columnas) */
-/* Mas padding inline en PC wide para que se vea "framed" */
-@media (min-width: 1200px) {
-  .container { padding-inline: clamp(2rem, 3vw, 3.5rem); }
-}
+/* .container ya está en el bloque base con max-width var(--container) = 1480px · sin per-section overrides para mantener consistencia visual */
 section { position: relative; }
 
 /* ----- EYEBROW ----- */
