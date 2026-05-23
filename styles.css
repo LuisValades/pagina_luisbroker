@@ -2161,8 +2161,14 @@ img, video, iframe { max-width: 100% !important; height: auto; }
 .marquee, .strip, .metrics, .hero { overflow: hidden !important; }
 
 @media (max-width: 600px) {
+  /* Padding lateral generoso en todas las secciones */
   .container {
-    padding-inline: 1.5rem;
+    padding-inline: 2rem;
+  }
+  /* EXCEPCIÓN: las cards de los anaqueles necesitan más espacio interior, no agregar padding extra al container */
+  .anaquel > .container,
+  .anaqueles > .container {
+    padding-inline: 1rem !important;
   }
   .hero__photo-caption {
     padding: 1.1rem 1.2rem;
