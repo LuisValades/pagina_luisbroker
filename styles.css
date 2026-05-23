@@ -134,6 +134,15 @@ p strong { color: var(--text); font-weight: 700; }
 }
 
 /* CACHE-BUSTER-MARKER · build 2026-05-22-22h59 · containers 1480px sin per-section overrides */
+
+/* FIX confirmado con debug visual: el timeline__list necesita !important
+   porque algun reset invisible le pisa el max-width 760px del bloque
+   original (linea 1365). max-width sin width fijo para no romper mobile. */
+.timeline__list {
+  max-width: 760px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
 section { position: relative; }
 
 /* ----- EYEBROW ----- */
