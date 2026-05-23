@@ -580,10 +580,10 @@ section { position: relative; }
 }
 
 @media (max-width: 480px) {
-  .nav__inner { gap: .5rem !important; }
-  .brand__monogram { width: 32px !important; height: 32px !important; flex: 0 0 32px !important; font-size: .9rem !important; }
-  .brand__name { font-size: .85rem !important; }
-  .brand__role { font-size: .52rem !important; }
+  .nav__inner { gap: .55rem !important; }
+  .brand__monogram { width: 46px !important; height: 46px !important; flex: 0 0 46px !important; font-size: 1.28rem !important; border-radius: 11px !important; }
+  .brand__name { font-size: 1.18rem !important; }
+  .brand__role { font-size: .72rem !important; }
 }
 
 /* ============================================================
