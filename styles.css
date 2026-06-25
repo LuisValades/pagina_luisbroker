@@ -1420,6 +1420,42 @@ section { position: relative; }
 }
 
 /* ============================================================
+   § FASE 3 · Anaquel DESKTOP — equilibrio premium (>1000px)
+   ============================================================ */
+@media (min-width: 1001px) {
+  /* izquierda como tarjeta → par equilibrado con el panel derecho */
+  .anaquel--light .anaquel__left {
+    background: var(--cream);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+    padding: clamp(1.5rem, 1.1rem + 1.3vw, 2.2rem);
+  }
+  .anaquel--dark .anaquel__left {
+    background: rgba(255,255,255,.03);
+    border: 1px solid rgba(255,255,255,.07);
+    border-radius: var(--r-lg);
+    padding: clamp(1.5rem, 1.1rem + 1.3vw, 2.2rem);
+  }
+  /* tabs en blanco para que resalten dentro de la tarjeta cream */
+  .anaquel--light .anaquel__tab { background: var(--paper); }
+  /* "01" más integrado, menos aire muerto arriba */
+  .anaquel__num { margin-bottom: .4rem; }
+
+  /* conexión tab activo ↔ panel: mismo acento sage */
+  .anaquel--light .anaquel__tab.is-active {
+    box-shadow: inset 3px 0 0 var(--sage), 0 12px 26px -16px rgba(9,12,20,.4);
+  }
+  .apan.is-active { box-shadow: inset 0 3px 0 var(--sage); }
+}
+
+/* CTA del panel coherente con el de la izquierda (azul electric, todo viewport) */
+.anaquel .apan .btn--primary {
+  background: linear-gradient(135deg, var(--sage-3) 0%, var(--sage) 50%, var(--moss-2) 100%);
+  border: 1px solid rgba(43,89,176,.4);
+  color: var(--cream);
+}
+
+/* ============================================================
    § 8 · TIMELINE pill zigzag
    ============================================================ */
 .timeline {
