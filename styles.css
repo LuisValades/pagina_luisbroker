@@ -2448,3 +2448,45 @@ img, video, iframe { max-width: 100% !important; height: auto; }
     transition-duration: .01ms !important;
   }
 }
+
+/* ============================================================
+   § FASE 2 · Conversión — CTAs azul, bandas de cierre, nav mobile
+   ============================================================ */
+
+/* Nav: atajo WhatsApp solo en mobile (desktop usa nav__cta) */
+.nav__wa { display: none; }
+
+/* Métricas: CTA en el pico de confianza (alineado con el head) */
+.metrics__cta { align-self: flex-start; margin-top: 1.6rem; }
+
+/* Bio: dos acciones (agenda + WhatsApp) */
+.bio__actions { display: flex; flex-wrap: wrap; gap: .8rem; margin-top: 1.75rem; }
+
+/* Timeline: CTA dual + link inline del paso 01 */
+.timeline__cta { display: flex; justify-content: center; flex-wrap: wrap; gap: 1rem; }
+.timeline__link { color: var(--sage); text-decoration: underline; text-underline-offset: 2px; font-weight: 700; }
+.timeline__link:hover { color: var(--moss); }
+
+/* Testimonios: CTA de cierre */
+.testimonios__cta { text-align: center; margin-top: 2.5rem; }
+
+/* FAQ: banda de cierre */
+.faq__close { margin-top: 2.75rem; text-align: center; }
+.faq__close p { color: var(--text-soft); margin-bottom: 1.1rem; font-size: 1.05rem; }
+.faq__close-actions { display: flex; justify-content: center; flex-wrap: wrap; gap: 1rem; }
+
+@media (max-width: 980px) {
+  .nav__wa {
+    display: inline-flex;
+    align-items: center; justify-content: center;
+    width: 44px; height: 44px;
+    margin-left: auto;
+    border-radius: 12px;
+    background: rgba(255,255,255,.92);
+    color: #25D366;
+    font-size: 1.2rem;
+    text-decoration: none;
+    border: 1px solid var(--line-strong);
+  }
+  .nav__toggle { margin-left: .5rem !important; }
+}
