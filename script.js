@@ -14,11 +14,43 @@
   const yr = $('#year');
   if (yr) yr.textContent = new Date().getFullYear();
 
-  /* ---------- nav scroll state ---------- */
+  /* ---------- nav scroll state + barra de progreso de lectura ---------- */
   const nav = $('#nav');
-  const onScroll = () => nav && nav.classList.toggle('is-scrolled', window.scrollY > 30);
+  let progress = null;
+  if (nav) {
+    progress = document.createElement('span');
+    progress.className = 'nav__progress';
+    progress.setAttribute('aria-hidden', 'true');
+    nav.appendChild(progress);
+  }
+  const onScroll = () => {
+    if (nav) nav.classList.toggle('is-scrolled', window.scrollY > 30);
+    if (progress) {
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      progress.style.transform = 'scaleX(' + (max > 0 ? Math.min(window.scrollY / max, 1) : 0) + ')';
+    }
+  };
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
+
+  /* ---------- scroll-spy: resalta el link de la sección activa ---------- */
+  (function () {
+    const links = $$('#navMenu a[href^="#"]');
+    if (!links.length || !('IntersectionObserver' in window)) return;
+    const map = new Map();
+    links.forEach(a => { const t = $(a.getAttribute('href')); if (t) map.set(t, a); });
+    if (!map.size) return;
+    const spy = new IntersectionObserver((entries) => {
+      entries.forEach(en => {
+        if (en.isIntersecting) {
+          links.forEach(l => l.classList.remove('is-active'));
+          const a = map.get(en.target);
+          if (a) a.classList.add('is-active');
+        }
+      });
+    }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
+    map.forEach((a, t) => spy.observe(t));
+  })();
 
   /* ---------- mobile menu toggle ---------- */
   const toggle = $('#navToggle');
@@ -55,11 +87,16 @@
     valorVal: $('#valorVal'),
     tasa:     $('#tasa'),
     tasaVal:  $('#tasaVal'),
+    tasaActual:    $('#tasaActual'),
+    tasaActualVal: $('#tasaActualVal'),
     chips:    $$('.chip[data-plazo]'),
     rHip:     $('#rHip'),
     rSeg:     $('#rSeg'),
     rTotal:   $('#rTotal'),
     rMensual: $('#rMensual'),
+    rActual:      $('#rActual'),
+    rAhorro:      $('#rAhorro'),
+    rAhorroTotal: $('#rAhorroTotal'),
   };
   let plazo = 15;
 
@@ -68,33 +105,46 @@
     return parseInt(calc.valor.value, 10) || 0;
   };
 
+  const pagoMensual = (monto, tasaAnual, n) => {
+    const i = (tasaAnual / 100) / 12;
+    let p;
+    if (i === 0) p = n > 0 ? monto / n : 0;
+    else p = monto * (i * Math.pow(1 + i, n)) / (Math.pow(1 + i, n) - 1);
+    return (!isFinite(p) || p < 0) ? 0 : p;
+  };
+
   const compute = () => {
     if (!calc.valor) return;
     const monto = parseValor();
     const tasaAnual = parseFloat(calc.tasa.value) || 0;
+    const tasaAct = calc.tasaActual ? (parseFloat(calc.tasaActual.value) || 0) : 0;
 
     if (calc.valorVal) calc.valorVal.textContent = fmtMXN.format(monto);
     if (calc.tasaVal)  calc.tasaVal.textContent  = tasaAnual.toFixed(1) + '%';
+    if (calc.tasaActualVal) calc.tasaActualVal.textContent = tasaAct.toFixed(1) + '%';
 
     const n = plazo * 12;
-    const i = (tasaAnual / 100) / 12;
-
-    let pagoHip;
-    if (i === 0) pagoHip = n > 0 ? monto / n : 0;
-    else pagoHip = monto * (i * Math.pow(1 + i, n)) / (Math.pow(1 + i, n) - 1);
-    if (!isFinite(pagoHip) || pagoHip < 0) pagoHip = 0;
-
+    const pagoHip = pagoMensual(monto, tasaAnual, n);
     const seguros = (monto / 1_000_000) * 2000;
     const mensual = pagoHip + seguros;
     const total   = mensual * n;
+
+    const mensualActual = pagoMensual(monto, tasaAct, n) + seguros;
+    const ahorroMes = Math.max(0, mensualActual - mensual);
+    const ahorroTot = ahorroMes * n;
 
     if (calc.rHip)     calc.rHip.textContent     = fmtMXN.format(pagoHip);
     if (calc.rSeg)     calc.rSeg.textContent     = fmtMXN.format(seguros);
     if (calc.rTotal)   calc.rTotal.textContent   = fmtMXN.format(total);
     if (calc.rMensual) calc.rMensual.textContent = fmtMXN.format(mensual);
+    if (calc.rActual)  calc.rActual.textContent  = fmtMXN.format(mensualActual);
+    if (calc.rAhorro)  calc.rAhorro.textContent  = fmtMXN.format(ahorroMes) + '/mes';
+    if (calc.rAhorroTotal) calc.rAhorroTotal.textContent = ahorroMes > 0
+      ? '≈ ' + fmtMXN.format(ahorroTot) + ' en ' + plazo + ' años'
+      : 'Sube tu tasa actual para ver el ahorro';
   };
 
-  [calc.valor, calc.tasa].forEach(el => el && el.addEventListener('input', compute));
+  [calc.valor, calc.tasa, calc.tasaActual].forEach(el => el && el.addEventListener('input', compute));
   calc.chips.forEach(c => {
     c.addEventListener('click', () => {
       calc.chips.forEach(x => x.classList.remove('is-active'));

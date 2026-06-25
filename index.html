@@ -312,6 +312,51 @@ n  <!-- deploy-marker: 4b0c071 force-rebuild -->
       </div>
     </section>
 
+    <!-- ============ § 4b · COMPARATIVA · Bróker vs Banco ============ -->
+    <section class="vs-section">
+      <div class="container">
+        <div class="vs-wrap">
+          <span class="eyebrow"><span class="dot"></span> La comparación honesta</span>
+          <h3 class="vs-title">Bróker privado <em>vs</em> ir solo al banco</h3>
+          <div class="vs-table" role="table" aria-label="Comparación: con Luis vs ir solo al banco">
+            <div class="vs-row vs-row--head" role="row">
+              <span class="vs-cell vs-cell--label" role="columnheader">La diferencia</span>
+              <span class="vs-cell vs-cell--luis" role="columnheader"><span class="vs-pill">Recomendado</span>Con Luis<small>Bróker AHMEX</small></span>
+              <span class="vs-cell vs-cell--bank" role="columnheader">Solo al banco</span>
+            </div>
+            <div class="vs-row" role="row">
+              <span class="vs-cell vs-cell--label" role="cell">Bancos que compiten por ti</span>
+              <span class="vs-cell vs-cell--luis" role="cell"><i class="fas fa-check"></i> +15 en paralelo</span>
+              <span class="vs-cell vs-cell--bank" role="cell">Solo 1</span>
+            </div>
+            <div class="vs-row" role="row">
+              <span class="vs-cell vs-cell--label" role="cell">Honorario para ti</span>
+              <span class="vs-cell vs-cell--luis" role="cell"><i class="fas fa-check"></i> $0 · lo paga el banco</span>
+              <span class="vs-cell vs-cell--bank" role="cell">Negocias tú solo</span>
+            </div>
+            <div class="vs-row" role="row">
+              <span class="vs-cell vs-cell--label" role="cell">Comparativa de ofertas</span>
+              <span class="vs-cell vs-cell--luis" role="cell"><i class="fas fa-check"></i> Tabla lado a lado</span>
+              <span class="vs-cell vs-cell--bank" role="cell">No la tienes</span>
+            </div>
+            <div class="vs-row" role="row">
+              <span class="vs-cell vs-cell--label" role="cell">Si un banco te rechaza</span>
+              <span class="vs-cell vs-cell--luis" role="cell"><i class="fas fa-check"></i> Otras opciones el mismo día</span>
+              <span class="vs-cell vs-cell--bank" role="cell">Vuelves a empezar</span>
+            </div>
+            <div class="vs-row" role="row">
+              <span class="vs-cell vs-cell--label" role="cell">Acompañamiento</span>
+              <span class="vs-cell vs-cell--luis" role="cell"><i class="fas fa-check"></i> Hasta la firma con notario</span>
+              <span class="vs-cell vs-cell--bank" role="cell">Tú solo con el ejecutivo</span>
+            </div>
+          </div>
+          <a class="btn btn--sage magnetic vs-cta" href="https://api.leadconnectorhq.com/widget/bookings/luis-valades-personal-calendar" target="_blank" rel="noopener">
+            <i class="fas fa-calendar-check"></i><span>Quiero que un bróker me represente</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
     <!-- ============ § 5 · MÉTRICAS con watermark ============ -->
     <section class="metrics" id="metricas">
       <span class="watermark" aria-hidden="true">RESULTADOS</span>
@@ -835,7 +880,12 @@ n  <!-- deploy-marker: 4b0c071 force-rebuild -->
           </div>
 
           <div class="field field--range">
-            <label for="tasa">Tasa anual <strong id="tasaVal">10.5%</strong></label>
+            <label for="tasaActual">Tu tasa actual (o la de tu banco) <strong id="tasaActualVal">12.5%</strong></label>
+            <input type="range" id="tasaActual" min="9" max="16" step="0.1" value="12.5" />
+          </div>
+
+          <div class="field field--range">
+            <label for="tasa">Tasa estimada conmigo <strong id="tasaVal">10.5%</strong></label>
             <input type="range" id="tasa" min="8" max="14" step="0.1" value="10.5" />
           </div>
 
@@ -851,12 +901,26 @@ n  <!-- deploy-marker: 4b0c071 force-rebuild -->
           </div>
 
           <div class="calc__results">
-            <div class="calc__row"><span>Pago capital + interés</span><strong id="rHip">$0</strong></div>
-            <div class="calc__row"><span>Seguros y comisiones</span><strong id="rSeg">$0</strong></div>
-            <div class="calc__row"><span>Total a pagar (plazo completo)</span><strong id="rTotal">$0</strong></div>
-            <div class="calc__row calc__row--hero">
-              <span>Pago mensual estimado</span>
-              <strong id="rMensual">$0</strong>
+            <div class="calc__cmp">
+              <div class="calc__cmp-col">
+                <span class="calc__cmp-label">Tu pago hoy</span>
+                <strong id="rActual">$0</strong>
+              </div>
+              <span class="calc__cmp-arrow" aria-hidden="true"><i class="fas fa-arrow-right"></i></span>
+              <div class="calc__cmp-col calc__cmp-col--win">
+                <span class="calc__cmp-label">Estimado conmigo</span>
+                <strong id="rMensual">$0</strong>
+              </div>
+            </div>
+            <div class="calc__save" id="calcSave">
+              <span class="calc__save-label"><i class="fas fa-arrow-trend-down"></i> Ahorro estimado</span>
+              <strong id="rAhorro">$0</strong>
+              <small id="rAhorroTotal">al mes</small>
+            </div>
+            <div class="calc__breakdown">
+              <div class="calc__row"><span>Capital + interés (conmigo)</span><strong id="rHip">$0</strong></div>
+              <div class="calc__row"><span>Seguros y comisiones</span><strong id="rSeg">$0</strong></div>
+              <div class="calc__row"><span>Total a pagar (plazo completo)</span><strong id="rTotal">$0</strong></div>
             </div>
           </div>
 

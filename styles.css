@@ -24,6 +24,7 @@
   --text-mute:  #717A8C;
   --line:       rgba(9,12,20,.08);
   --line-strong: rgba(9,12,20,.16);
+  --sp:         clamp(4rem, 2.5rem + 4vw, 6.3rem); /* respiro vertical uniforme de sección */
 
   /* Tipo */
   --f-display:  'Oswald', 'Helvetica Neue', sans-serif;
@@ -2489,4 +2490,162 @@ img, video, iframe { max-width: 100% !important; height: auto; }
     border: 1px solid var(--line-strong);
   }
   .nav__toggle { margin-left: .5rem !important; }
+}
+
+/* ============================================================
+   § FASE 3 · Features — tabla comparativa Bróker vs Banco
+   ============================================================ */
+.vs-wrap { margin-top: clamp(2.5rem, 1.5rem + 3vw, 4rem); text-align: center; }
+.vs-title {
+  font-family: var(--f-display);
+  font-size: clamp(1.5rem, 1.1rem + 1.4vw, 2.1rem);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  margin: 0 0 1.6rem;
+  color: var(--text);
+}
+.vs-title em { font-style: italic; color: var(--sage); font-weight: 400; }
+.vs-table {
+  max-width: 760px !important;
+  margin: 0 auto;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--paper);
+  box-shadow: 0 20px 50px -34px rgba(9,12,20,.22);
+  text-align: left;
+}
+.vs-row { display: grid; grid-template-columns: 1.5fr 1fr 1fr; align-items: stretch; }
+.vs-row + .vs-row { border-top: 1px solid var(--line); }
+.vs-cell { padding: .95rem 1.25rem; font-size: .92rem; line-height: 1.35; display: flex; align-items: center; gap: .45rem; }
+.vs-cell--label { font-weight: 600; color: var(--text); }
+
+/* Columna destacada "Con Luis": tinte suave CONTINUO (header+cuerpo) + acento sage arriba */
+.vs-cell--luis { background: var(--mint-2); color: var(--text); font-weight: 600; }
+.vs-cell--luis i { color: var(--sage); font-size: .85rem; }
+.vs-cell--bank { color: var(--text-soft); }
+
+/* Header: etiquetas uppercase tenues, columna Luis en sage con acento superior */
+.vs-row--head .vs-cell {
+  font-family: var(--f-label);
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  font-size: .8rem;
+  padding-block: 1.05rem;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: .12rem;
+  color: var(--text-mute);
+}
+.vs-row--head .vs-cell--luis {
+  color: var(--sage);
+  box-shadow: inset 0 3px 0 var(--sage);
+}
+.vs-row--head .vs-cell--luis small {
+  font-family: var(--f-body); text-transform: none; letter-spacing: 0;
+  font-size: .66rem; color: var(--text-soft); font-weight: 400;
+}
+.vs-pill {
+  display: inline-block; margin-bottom: .35rem;
+  background: rgba(43,89,176,.13); color: var(--sage);
+  font-family: var(--f-body); font-weight: 700;
+  font-size: .56rem; letter-spacing: .1em; text-transform: uppercase;
+  padding: .2rem .5rem; border-radius: 999px;
+}
+.vs-cta { margin-top: 1.9rem; }
+
+@media (max-width: 560px) {
+  .vs-row { grid-template-columns: 1.3fr .95fr .85fr; }
+  .vs-cell { padding: .7rem .6rem; font-size: .78rem; }
+  .vs-row--head .vs-cell { font-size: .68rem; letter-spacing: .05em; }
+  .vs-row--head .vs-cell--luis small { font-size: .58rem; }
+  .vs-pill { font-size: .5rem; padding: .18rem .4rem; }
+  .vs-cell--luis { gap: .3rem; }
+  .vs-cell--luis i { font-size: .72rem; }
+}
+
+/* ============================================================
+   § FASE 3 · A — Ritmo vertical uniforme · B/C — fondos
+   ============================================================ */
+/* A · respiro uniforme en secciones de contenido */
+.features, .vs-section, .metrics, .anaquel,
+.timeline, .calc, .bio, .testimonios, .faq, .cta-final {
+  padding-top: var(--sp) !important;
+  padding-bottom: var(--sp) !important;
+}
+/* strip = banda conectora, padding simétrico moderado */
+.strip { padding-top: 3.5rem !important; padding-bottom: 3.5rem !important; }
+
+/* C · romper el run cream (hero+strip+features): strip a blanco */
+.strip { background: var(--paper) !important; }
+/* B · la comparativa es su propia sección (cream para que el card blanco resalte) */
+.vs-section { background: var(--cream); }
+.vs-wrap { margin-top: 0 !important; }
+.vs-section .vs-wrap .eyebrow { justify-content: center; }
+
+/* ============================================================
+   § FASE 3 · Nav scroll-spy + barra de progreso de lectura
+   ============================================================ */
+.nav__progress {
+  position: absolute; left: 0; bottom: 0;
+  height: 2.5px; width: 100%;
+  background: linear-gradient(90deg, var(--sage-3), var(--sage));
+  transform: scaleX(0); transform-origin: left center;
+  transition: transform .12s linear;
+  pointer-events: none; z-index: 3;
+}
+.nav__menu a.is-active { color: var(--sage); font-weight: 700; }
+
+@media (max-width: 980px) {
+  /* en el drawer oscuro el activo va en azul claro para contraste */
+  .nav__menu a.is-active { color: var(--sage-3) !important; }
+}
+
+/* ============================================================
+   § FASE 3 · Calculadora — comparador de ahorro (panel claro)
+   ============================================================ */
+.calc__cmp {
+  display: grid; grid-template-columns: 1fr auto 1fr;
+  align-items: stretch; gap: .5rem;
+}
+.calc__cmp-col {
+  text-align: center; padding: .85rem .5rem; border-radius: var(--r-md);
+  background: rgba(9,12,20,.035);
+  display: flex; flex-direction: column; justify-content: center; gap: .25rem;
+}
+.calc__cmp-col--win { background: rgba(43,89,176,.09); }
+.calc__cmp-label {
+  font-family: var(--f-label); font-size: .7rem; text-transform: uppercase;
+  letter-spacing: .12em; color: var(--text-mute);
+}
+.calc__cmp-col strong {
+  font-family: var(--f-display); font-size: clamp(1.15rem, .9rem + .9vw, 1.5rem);
+  font-weight: 600; color: var(--text); letter-spacing: -0.01em;
+}
+.calc__cmp-col--win strong { color: var(--sage); }
+.calc__cmp-arrow { display: flex; align-items: center; justify-content: center; color: var(--sage); font-size: .85rem; }
+
+.calc__save {
+  padding: 1rem 1.2rem; text-align: center;
+  background: linear-gradient(135deg, var(--ink), var(--ink-3));
+  border-radius: var(--r-md); color: var(--cream); box-shadow: var(--sh-ink);
+}
+.calc__save-label {
+  font-family: var(--f-label); font-size: .8rem; letter-spacing: .14em;
+  text-transform: uppercase; color: rgba(220,230,245,.7);
+}
+.calc__save-label i { color: var(--sage-3); margin-right: .3rem; }
+.calc__save strong {
+  display: block; font-family: var(--f-display);
+  font-size: clamp(1.7rem, 1.2rem + 2vw, 2.4rem); font-weight: 600; line-height: 1.05; margin-top: .2rem;
+  background: linear-gradient(135deg, var(--sage-3), var(--mint));
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+}
+.calc__save small { display: block; margin-top: .3rem; font-size: .78rem; color: rgba(220,230,245,.65); }
+.calc__breakdown { display: flex; flex-direction: column; gap: .65rem; }
+
+@media (max-width: 560px) {
+  .calc__cmp-col { padding: .7rem .35rem; }
+  .calc__cmp-col strong { font-size: 1.1rem; }
 }
