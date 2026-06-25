@@ -2717,3 +2717,14 @@ img, video, iframe { max-width: 100% !important; height: auto; }
   margin: .85rem 0 0; font-size: .86rem; color: var(--text-soft);
 }
 .hero__microcopy i { color: var(--sage); }
+
+/* Hero · prueba social */
+.hero__proof {
+  display: flex; align-items: center; gap: .55rem;
+  margin: 1rem 0 0; font-size: .95rem; color: var(--text);
+}
+.hero__proof-num {
+  font-family: var(--f-display); font-weight: 600;
+  font-size: 1.5rem; line-height: 1; color: var(--sage);
+  letter-spacing: -0.01em;
+}
