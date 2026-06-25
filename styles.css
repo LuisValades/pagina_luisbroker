@@ -2728,3 +2728,28 @@ img, video, iframe { max-width: 100% !important; height: auto; }
   font-size: 1.5rem; line-height: 1; color: var(--sage);
   letter-spacing: -0.01em;
 }
+
+/* ============================================================
+   § Hero · refinamiento compacto + premium (desktop ≥901px)
+   ============================================================ */
+@media (min-width: 901px) {
+  .hero__content { padding-right: clamp(2rem, 3vw, 3.5rem); }
+  .hero__copy { max-width: 600px; }                 /* medida contenida = premium, deja gutter derecho */
+  .hero__title {
+    font-size: clamp(26px, 1.3vw + 18px, 42px);     /* antes hasta 54px */
+    margin: .8rem 0 1rem; line-height: 1.1;
+  }
+  .hero__sub {
+    font-size: clamp(.98rem, .9rem + .2vw, 1.08rem);
+    margin-bottom: 1.1rem; line-height: 1.55;
+  }
+  .hero__chips { margin-top: .85rem; }
+  .hero__cta { margin-bottom: 1rem; }
+  .hero__proof { margin-top: .85rem; font-size: .9rem; }
+  .hero__proof-num { font-size: 1.3rem; }
+  .hero__microcopy { margin-top: .55rem; font-size: .82rem; }
+  .hero__trust { padding: 1rem 0 0; gap: .7rem 1.3rem; }
+  .hero__trust li { font-size: .82rem; }
+}
+/* compactar: el marquee de logos del hero duplicaba la fila "Certificado AHMEX·Creditaria" */
+.hero__badges-wrap { display: none !important; }
