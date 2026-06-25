@@ -214,7 +214,17 @@
       tab.addEventListener('click', () => {
         const target = tab.dataset.target;
         if (!target) return;
-        if (tab.classList.contains('is-active')) return;
+        if (tab.classList.contains('is-active')) {
+          // en acordeón (mobile) un segundo tap cierra
+          if (anaquel.classList.contains('is-accordion')) {
+            tab.classList.remove('is-active');
+            tab.setAttribute('aria-selected', 'false');
+            const a = tab.querySelector('.anaquel__tab-arrow');
+            if (a) a.classList.remove('is-rot');
+            panels.forEach(p => { if (p.id === target) { p.hidden = true; p.classList.remove('is-active'); } });
+          }
+          return;
+        }
 
         tabs.forEach(t => {
           t.classList.remove('is-active');
@@ -236,6 +246,51 @@
       });
     });
   });
+
+  /* ---------- Anaquel · acordeón en mobile (≤1000px) ----------
+     Reubica cada panel .apan justo debajo de su tab para que el
+     click existente actúe como acordeón. En desktop vuelve a .anaquel__right. */
+  (function () {
+    const mq = window.matchMedia('(max-width: 1000px)');
+    const groups = $$('.anaquel').map(a => ({
+      a,
+      right: $('.anaquel__right', a),
+      tabs:  $$('.anaquel__tab', a),
+    })).filter(g => g.right && g.tabs.length);
+    if (!groups.length) return;
+
+    const setTab = (tab, panel, on) => {
+      tab.classList.toggle('is-active', on);
+      tab.setAttribute('aria-selected', on ? 'true' : 'false');
+      const ar = tab.querySelector('.anaquel__tab-arrow');
+      if (ar) ar.classList.toggle('is-rot', on);
+      if (panel) { panel.hidden = !on; panel.classList.toggle('is-active', on); }
+    };
+
+    const toMobile = () => groups.forEach(({ a, tabs }) => {
+      a.classList.add('is-accordion');
+      tabs.forEach(tab => {
+        const panel = tab.dataset.target && document.getElementById(tab.dataset.target);
+        if (panel && tab.nextElementSibling !== panel) {
+          tab.insertAdjacentElement('afterend', panel);
+          panel.classList.add('apan--accordion');
+        }
+        setTab(tab, panel, false); // arranca colapsado
+      });
+    });
+    const toDesktop = () => groups.forEach(({ a, right, tabs }) => {
+      a.classList.remove('is-accordion');
+      tabs.forEach((tab, i) => {
+        const panel = tab.dataset.target && document.getElementById(tab.dataset.target);
+        if (panel) { panel.classList.remove('apan--accordion'); right.appendChild(panel); }
+        setTab(tab, panel, i === 0); // master-detail: primero abierto
+      });
+    });
+    const apply = () => (mq.matches ? toMobile() : toDesktop());
+    apply();
+    if (mq.addEventListener) mq.addEventListener('change', apply);
+    else if (mq.addListener) mq.addListener(apply);
+  })();
 
   /* ============================================================
      MAGNETIC BUTTONS (efecto imán)

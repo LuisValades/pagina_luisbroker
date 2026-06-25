@@ -1406,6 +1406,17 @@ section { position: relative; }
   .anaquel__grid { grid-template-columns: 1fr; }
   .anaquel__right { position: static; }
   .apan__media { aspect-ratio: 16/10; }
+
+  /* Acordeón mobile: el panel se reubica bajo su tab (JS).
+     Si el JS no corre, el contenedor conserva los paneles y se muestra. */
+  .anaquel__right:empty { display: none; }
+  .apan--accordion {
+    margin: .55rem 0 .35rem;
+    box-shadow: var(--sh-1);
+    scroll-margin-top: 90px;
+  }
+  /* el tab activo ancla visualmente el panel abierto */
+  .anaquel__tab.is-active { border-color: var(--sage) !important; }
 }
 
 /* ============================================================
