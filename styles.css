@@ -1251,7 +1251,7 @@ section { position: relative; }
   letter-spacing: -0.005em;
 }
 .anaquel__tab-sub { font-size: .95rem; }
-.anaquel--light .anaquel__tab-sub { color: var(--text-mute); }
+.anaquel--light .anaquel__tab-sub { color: var(--text-soft); }
 .anaquel--dark .anaquel__tab-sub { color: rgba(220,230,245,.6); }
 
 .anaquel__tab-arrow {
@@ -2182,7 +2182,7 @@ section { position: relative; }
   flex-direction: column;
   gap: .65rem;
 }
-.footer ul a { font-size: .9rem; color: rgba(220,230,245,.7); transition: color .25s; }
+.footer ul a { font-size: .9rem; color: rgba(220,230,245,.7); transition: color .25s; display: inline-flex; align-items: center; min-height: 28px; }
 .footer ul a:hover { color: var(--sage-3); }
 .footer ul i { color: var(--sage-3); margin-right: .5rem; font-size: .85rem; }
 
@@ -2193,7 +2193,7 @@ section { position: relative; }
   flex-wrap: wrap;
   gap: 1rem;
   font-size: .8rem;
-  color: rgba(220,230,245,.45);
+  color: rgba(220,230,245,.72);
 }
 
 @media (max-width: 720px) {
@@ -2230,6 +2230,7 @@ section { position: relative; }
   .footer h4 { font-size: .85rem; margin-bottom: .65rem; letter-spacing: .16em; }
   .footer ul { gap: .4rem; }
   .footer ul a, .footer ul li { font-size: .8rem; }
+  .footer ul a { min-height: 44px; }
   /* Solo mostrar 3 items por lista (no 5) */
   .footer ul li:nth-child(n+4) { display: none; }
   .socials { gap: .7rem; margin-top: 1rem; justify-content: flex-start; }
