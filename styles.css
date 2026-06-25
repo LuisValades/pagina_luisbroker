@@ -2696,3 +2696,24 @@ img, video, iframe { max-width: 100% !important; height: auto; }
   .calc__cmp-col { padding: .7rem .35rem; }
   .calc__cmp-col strong { font-size: 1.1rem; }
 }
+
+/* ============================================================
+   § Hero · chips de productos + microcopy de reaseguro
+   ============================================================ */
+.hero__chips {
+  display: flex; flex-wrap: wrap; gap: .5rem;
+  list-style: none; padding: 0; margin: 1.1rem 0 0;
+}
+.hero__chips li {
+  font-family: var(--f-body); font-size: .82rem; font-weight: 500;
+  color: var(--text-soft);
+  padding: .34rem .85rem;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-full);
+  background: var(--paper);
+}
+.hero__microcopy {
+  display: flex; align-items: center; gap: .45rem;
+  margin: .85rem 0 0; font-size: .86rem; color: var(--text-soft);
+}
+.hero__microcopy i { color: var(--sage); }
