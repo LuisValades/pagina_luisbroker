@@ -2753,3 +2753,30 @@ img, video, iframe { max-width: 100% !important; height: auto; }
 }
 /* compactar: el marquee de logos del hero duplicaba la fila "Certificado AHMEX·Creditaria" */
 .hero__badges-wrap { display: none !important; }
+
+/* ============================================================
+   § HERO · REDISEÑO split refinado · foto en tarjeta (≥901px)
+   ============================================================ */
+@media (min-width: 901px) {
+  .hero {
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, .92fr) !important;
+    gap: clamp(2.5rem, 4vw, 4.5rem);
+    align-items: center;
+    min-height: auto;
+    padding-top: calc(96px + clamp(1.5rem, 3vw, 3rem));
+    padding-bottom: clamp(2.5rem, 4vw, 4rem);
+    /* contiene el hero a 1320px centrado, pero el fondo cream sigue full-bleed */
+    padding-inline: max(clamp(1.25rem, 1rem + 1vw, 2rem), calc((100% - 1320px) / 2)) !important;
+  }
+  .hero__content { order: 1; padding: 0 !important; background: transparent; }
+  .hero__photo {
+    order: 2;
+    border-radius: 24px;
+    overflow: hidden;
+    aspect-ratio: 4 / 5;
+    min-height: 0;
+    box-shadow: 0 32px 72px -34px rgba(9,12,20,.5);
+  }
+  .hero__photo img { object-position: center 30%; }
+  .hero__copy { max-width: 560px; }
+}
