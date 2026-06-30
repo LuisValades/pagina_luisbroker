@@ -2909,3 +2909,31 @@ img, video, iframe { max-width: 100% !important; height: auto; }
 }
 .pcard__stats { border-top: 1px solid rgba(255,255,255,.09) !important; padding-top: 1rem !important; }
 .pcard__cta { letter-spacing: .01em; }
+
+/* ============================================================
+   § ANAQUELES · tarjetas con IMAGEN (taste-soft premium)
+   ============================================================ */
+.pcard { padding: 0 !important; overflow: hidden !important; }
+.pcard::before { display: none !important; }       /* la foto va flush arriba */
+.pcard::after {                                     /* marco interior hairline */
+  inset: 0 !important; border-radius: 26px !important;
+  border: 1px solid rgba(255,255,255,.06) !important;
+}
+.pcard__media { position: relative; aspect-ratio: 16 / 10; overflow: hidden; }
+.pcard__media img { width: 100%; height: 100%; object-fit: cover; transition: transform .7s cubic-bezier(.32,.72,0,1); }
+.pcard:hover .pcard__media img { transform: scale(1.06); }
+.pcard__media::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 1;
+  background: linear-gradient(to top, rgba(12,18,34,.94) 0%, rgba(12,18,34,.30) 42%, rgba(12,18,34,0) 72%);
+}
+.pcard__badge {
+  position: absolute; left: .95rem; bottom: .9rem; z-index: 2;
+  display: inline-flex; align-items: center; gap: .45rem;
+  background: rgba(18,28,52,.62); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,.16);
+  color: var(--cream); font-family: var(--f-label); text-transform: uppercase; letter-spacing: .1em;
+  font-size: .68rem; padding: .4rem .82rem; border-radius: 999px; margin: 0;
+}
+.pcard__badge i { color: var(--sage-3); font-size: .8rem; }
+.pcard__body { padding: 1.4rem 1.55rem 1.6rem !important; display: flex; flex-direction: column; gap: .6rem; }
+.pcard__title { margin-top: .1rem; }
