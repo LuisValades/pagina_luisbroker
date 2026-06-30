@@ -2857,3 +2857,55 @@ img, video, iframe { max-width: 100% !important; height: auto; }
   .prod-foot__cta { justify-content: center; }
   .prod-foot__stats { gap: 1.5rem; justify-content: space-between; }
 }
+
+/* ============================================================
+   § ANAQUELES · tarjetas PREMIUM (taste-soft: double-bezel, hairlines)
+   ============================================================ */
+.pcard {
+  position: relative;
+  background: linear-gradient(158deg, #1B2A52 0%, #111B30 52%, #0C1422 100%) !important;
+  border: 1px solid rgba(255,255,255,.09) !important;
+  border-radius: 26px !important;
+  padding: 2rem 1.7rem 1.7rem !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.11),
+    0 2px 4px -1px rgba(9,12,20,.45),
+    0 28px 56px -30px rgba(9,12,20,.6) !important;
+  transition: transform .6s cubic-bezier(.32,.72,0,1),
+              box-shadow .6s cubic-bezier(.32,.72,0,1),
+              border-color .45s cubic-bezier(.32,.72,0,1) !important;
+  overflow: hidden;
+}
+/* anillo interior concéntrico (double-bezel) */
+.pcard::after {
+  content: ''; position: absolute; inset: 6px; border-radius: 20px;
+  border: 1px solid rgba(255,255,255,.045);
+  pointer-events: none; z-index: 0;
+}
+.pcard > * { position: relative; z-index: 1; }
+/* acento superior (línea azul) — refinado */
+.pcard::before {
+  height: 2px !important; border-radius: 26px 26px 0 0 !important;
+  background: linear-gradient(90deg, var(--sage-3), var(--sage)) !important;
+  transition: transform .55s cubic-bezier(.32,.72,0,1) !important;
+}
+.pcard:hover {
+  transform: translateY(-7px) !important;
+  border-color: rgba(93,143,232,.42) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.16),
+    0 2px 4px -1px rgba(9,12,20,.45),
+    0 40px 80px -34px rgba(9,12,20,.72),
+    0 0 56px -16px rgba(43,89,176,.6) !important;
+}
+/* ícono · bisel premium */
+.pcard__icon {
+  width: 54px !important; height: 54px !important; border-radius: 16px !important;
+  background: linear-gradient(158deg, rgba(93,143,232,.26), rgba(43,89,176,.10)) !important;
+  border: 1px solid rgba(93,143,232,.28);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.15), 0 6px 16px -8px rgba(43,89,176,.5);
+  color: var(--sage-3) !important; font-size: 1.3rem !important;
+  margin-bottom: .5rem !important;
+}
+.pcard__stats { border-top: 1px solid rgba(255,255,255,.09) !important; padding-top: 1rem !important; }
+.pcard__cta { letter-spacing: .01em; }
