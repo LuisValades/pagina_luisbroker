@@ -2811,3 +2811,49 @@ img, video, iframe { max-width: 100% !important; height: auto; }
   .hero__photo img { object-position: center 30%; }
   .hero__copy { max-width: 560px; }
 }
+
+/* ============================================================
+   § ANAQUELES · header/footer (restaurado) + stats de tarjeta
+   ============================================================ */
+.prod-head { display: flex; align-items: flex-start; gap: 1.2rem; margin: 2.4rem 0 1.8rem; }
+.prod-head__num {
+  font-family: var(--f-display); font-weight: 600; line-height: 1;
+  font-size: clamp(2.4rem, 1.5rem + 3vw, 3.6rem);
+  background-image: linear-gradient(120deg, var(--moss), var(--sage));
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.prod-head__intro { display: flex; flex-direction: column; }
+.prod-head__title { font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem); margin: .35rem 0 0; }
+.prod-head__tags { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: .8rem; }
+
+.prod-foot {
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap;
+  gap: 1.5rem; margin-top: 2.2rem; padding-top: 1.8rem; border-top: 1px solid var(--line);
+}
+.prod-foot__stats { display: flex; gap: 2.4rem; }
+.prod-foot__stats div { display: flex; flex-direction: column; gap: 3px; }
+.prod-foot__stats strong { font-family: var(--f-display); font-size: 1.65rem; color: var(--text); line-height: 1; }
+.prod-foot__stats span { font-size: .78rem; color: var(--text-soft); }
+
+/* stats dentro de la tarjeta oscura */
+.pcard__stats {
+  display: flex; gap: 1.6rem; margin: .35rem 0 .2rem;
+  padding-top: .85rem; border-top: 1px solid rgba(255,255,255,.08);
+}
+.pcard__stats div { display: flex; flex-direction: column; gap: 2px; }
+.pcard__stats strong { font-family: var(--f-display); font-size: 1.15rem; color: var(--sage-3); letter-spacing: -.01em; }
+.pcard__stats span { font-size: .68rem; color: rgba(220,230,245,.55); text-transform: uppercase; letter-spacing: .05em; }
+/* acento azul superior en hover */
+.pcard { position: relative; }
+.pcard::before {
+  content: ''; position: absolute; inset: 0 0 auto 0; height: 3px; border-radius: 18px 18px 0 0;
+  background: linear-gradient(90deg, var(--sage-3), var(--sage));
+  transform: scaleX(0); transform-origin: left; transition: transform .35s ease;
+}
+.pcard:hover::before { transform: scaleX(1); }
+
+@media (max-width: 760px) {
+  .prod-foot { flex-direction: column; align-items: stretch; }
+  .prod-foot__cta { justify-content: center; }
+  .prod-foot__stats { gap: 1.5rem; justify-content: space-between; }
+}
