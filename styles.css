@@ -2937,3 +2937,10 @@ img, video, iframe { max-width: 100% !important; height: auto; }
 .pcard__badge i { color: var(--sage-3); font-size: .8rem; }
 .pcard__body { padding: 1.4rem 1.55rem 1.6rem !important; display: flex; flex-direction: column; gap: .6rem; }
 .pcard__title { margin-top: .1rem; }
+
+/* Anaqueles · contener el ancho (el reset * {max-width:100%!important} pisa .container) */
+.anaquel .container {
+  max-width: 1200px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
