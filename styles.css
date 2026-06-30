@@ -29,7 +29,7 @@
   /* Tipo */
   --f-display:  'Oswald', 'Helvetica Neue', sans-serif;
   --f-body:     'Karla', system-ui, -apple-system, sans-serif;
-  --f-label:    'Bebas Neue', 'Oswald', sans-serif;
+  --f-label:    'Oswald', 'Helvetica Neue', sans-serif; /* eyebrows/labels: Oswald uppercase (antes Bebas Neue) — 2 fuentes */
 
   /* Radii */
   --r-sm: 10px;
@@ -107,7 +107,7 @@ h1, h2, h3, h4 {
   margin: 0;
 }
 h1 { font-size: clamp(2rem, 1.2rem + 2.4vw, 3.4rem); font-weight: 600; }
-h2 { font-size: clamp(1.85rem, 1.2rem + 1.5vw, 2.9rem); font-weight: 600; }
+h2 { font-size: clamp(1.6rem, 1.05rem + 1.2vw, 2.05rem); font-weight: 600; }
 h3 { font-size: clamp(1.25rem, 1rem + .7vw, 1.6rem); letter-spacing: -0.01em; }
 h4 { font-size: 1.55rem; letter-spacing: -0.015em; font-weight: 600; }
 
@@ -1599,7 +1599,7 @@ section { position: relative; }
   align-items: center;
 }
 .calc__intro h2 {
-  font-size: clamp(1.8rem, 1.3rem + 1.6vw, 2.8rem);
+  font-size: clamp(1.6rem, 1.05rem + 1.2vw, 2.05rem);
   margin: 1rem 0;
 }
 .calc__intro p { color: var(--text-soft); max-width: 420px; margin-bottom: 2rem; }
@@ -1816,7 +1816,7 @@ section { position: relative; }
   text-transform: uppercase;
 }
 .bio__text h2 {
-  font-size: clamp(2rem, 1.4rem + 2vw, 3.4rem);
+  font-size: clamp(1.7rem, 1.2rem + 1.4vw, 2.1rem);
   margin: 1rem 0 1.5rem;
 }
 .bio__pillars {
@@ -1922,7 +1922,7 @@ section { position: relative; }
 }
 .faq__head { position: sticky; top: 110px; }
 .faq__head h2 {
-  font-size: clamp(1.6rem, 1.2rem + 1.4vw, 2.4rem);
+  font-size: clamp(1.55rem, 1.05rem + 1.2vw, 2.05rem);
   margin: 1rem 0;
 }
 .faq__head p { color: var(--text-soft); margin-bottom: 1.5rem; }
@@ -2169,7 +2169,7 @@ section { position: relative; }
 .cta-final .eyebrow { color: var(--sage-3); }
 .cta-final h2 {
   color: var(--cream);
-  font-size: clamp(2rem, 1.4rem + 2vw, 3rem);
+  font-size: clamp(1.7rem, 1.2rem + 1.4vw, 2.1rem);
   margin: 1rem 0;
 }
 .cta-final p { color: rgba(220,230,245,.7); max-width: 480px; }
@@ -2736,8 +2736,8 @@ img, video, iframe { max-width: 100% !important; height: auto; }
   .hero__content { padding-right: clamp(2rem, 3vw, 3.5rem); }
   .hero__copy { max-width: 600px; }                 /* medida contenida = premium, deja gutter derecho */
   .hero__title {
-    font-size: clamp(26px, 1.3vw + 18px, 42px);     /* tamaño bien · NO cambiar */
-    margin: 1.2rem 0 1.5rem; line-height: 1.12;
+    font-size: clamp(30px, 1.6vw + 24px, 48px);     /* H1 manda (>= H2 de sección) */
+    margin: 1.2rem 0 1.5rem; line-height: 1.1;
   }
   .hero__sub {
     font-size: clamp(.98rem, .9rem + .2vw, 1.08rem);
