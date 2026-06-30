@@ -2780,3 +2780,64 @@ img, video, iframe { max-width: 100% !important; height: auto; }
   .hero__photo img { object-position: center 30%; }
   .hero__copy { max-width: 560px; }
 }
+
+/* ============================================================
+   § ANAQUELES · REDISEÑO bento (grid de tarjetas de producto)
+   ============================================================ */
+.prod-head { display: flex; align-items: flex-start; gap: 1.2rem; margin: 2.2rem 0 1.6rem; }
+.prod-head__num {
+  font-family: var(--f-display); font-weight: 600; line-height: 1;
+  font-size: clamp(2.4rem, 1.5rem + 3vw, 3.6rem);
+  background-image: linear-gradient(120deg, var(--moss), var(--sage));
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.prod-head__title { font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem); margin: .35rem 0 0; }
+.prod-head__tags { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: .75rem; }
+
+.prod-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(1rem, 1.5vw, 1.5rem); }
+.prod-card {
+  background: var(--paper); border: 1px solid var(--line); border-radius: 18px;
+  overflow: hidden; display: flex; flex-direction: column;
+  transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+}
+.prod-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 26px 54px -30px rgba(9,12,20,.42);
+  border-color: rgba(43,89,176,.3);
+}
+.prod-card__media { position: relative; aspect-ratio: 16 / 10; overflow: hidden; background: var(--mint-2); }
+.prod-card__media img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
+.prod-card:hover .prod-card__media img { transform: scale(1.05); }
+.prod-card__badge {
+  position: absolute; left: .8rem; bottom: .8rem;
+  background: rgba(255,255,255,.92); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+  color: var(--ink); font-family: var(--f-label); text-transform: uppercase; letter-spacing: .08em;
+  font-size: .72rem; padding: .38rem .75rem; border-radius: var(--r-full);
+  display: inline-flex; align-items: center; gap: .4rem;
+}
+.prod-card__badge i { color: var(--sage); }
+.prod-card__body { padding: 1.2rem 1.3rem 1.35rem; display: flex; flex-direction: column; gap: .55rem; flex: 1; }
+.prod-card__title { font-size: 1.2rem; margin: 0; line-height: 1.15; }
+.prod-card__desc { font-size: .9rem; color: var(--text-soft); line-height: 1.5; margin: 0; }
+.prod-card__stats { display: flex; gap: 1.6rem; margin: .35rem 0 .2rem; }
+.prod-card__stats div { display: flex; flex-direction: column; gap: 1px; }
+.prod-card__stats strong { font-family: var(--f-display); font-size: 1.2rem; color: var(--sage); letter-spacing: -.01em; }
+.prod-card__stats span { font-size: .7rem; color: var(--text-mute); text-transform: uppercase; letter-spacing: .05em; }
+.prod-card__cta { margin-top: auto; align-self: flex-start; }
+
+.prod-foot {
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem;
+  margin-top: 2rem; padding-top: 1.7rem; border-top: 1px solid var(--line);
+}
+.prod-foot__stats { display: flex; gap: 2.2rem; }
+.prod-foot__stats div { display: flex; flex-direction: column; gap: 2px; }
+.prod-foot__stats strong { font-family: var(--f-display); font-size: 1.6rem; color: var(--text); line-height: 1; }
+.prod-foot__stats span { font-size: .78rem; color: var(--text-soft); }
+
+@media (max-width: 760px) {
+  .prod-grid { grid-template-columns: 1fr; }
+  .prod-head { gap: .9rem; margin: 1.6rem 0 1.2rem; }
+  .prod-foot { flex-direction: column; align-items: stretch; }
+  .prod-foot__cta { justify-content: center; }
+  .prod-foot__stats { gap: 1.5rem; justify-content: space-between; }
+}
