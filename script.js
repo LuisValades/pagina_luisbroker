@@ -82,78 +82,68 @@
   /* ============================================================
      CALCULADORA HIPOTECARIA
      ============================================================ */
-  const calc = {
-    valor:    $('#valor'),
-    valorVal: $('#valorVal'),
-    tasa:     $('#tasa'),
-    tasaVal:  $('#tasaVal'),
-    tasaActual:    $('#tasaActual'),
-    tasaActualVal: $('#tasaActualVal'),
-    chips:    $$('.chip[data-plazo]'),
-    rHip:     $('#rHip'),
-    rSeg:     $('#rSeg'),
-    rTotal:   $('#rTotal'),
-    rMensual: $('#rMensual'),
-    rActual:      $('#rActual'),
-    rAhorro:      $('#rAhorro'),
-    rAhorroTotal: $('#rAhorroTotal'),
+  const sim = {
+    vivienda: $('#simVivienda'), monto: $('#simMonto'),
+    viviendaVal: $('#simViviendaVal'), montoVal: $('#simMontoVal'),
+    ltv: $('#simLtv'), total: $('#simTotal'), capital: $('#simCapital'),
+    vida: $('#simVida'), danos: $('#simDanos'), cat: $('#simCat'),
+    enganche: $('#simEnganche'), pills: $$('.sim__pill[data-plazo]'), reset: $('#simReset'),
   };
-  let plazo = 15;
-
-  const parseValor = () => {
-    if (!calc.valor) return 0;
-    return parseInt(calc.valor.value, 10) || 0;
-  };
-
-  const pagoMensual = (monto, tasaAnual, n) => {
-    const i = (tasaAnual / 100) / 12;
-    let p;
-    if (i === 0) p = n > 0 ? monto / n : 0;
-    else p = monto * (i * Math.pow(1 + i, n)) / (Math.pow(1 + i, n) - 1);
-    return (!isFinite(p) || p < 0) ? 0 : p;
-  };
-
-  const compute = () => {
-    if (!calc.valor) return;
-    const monto = parseValor();
-    const tasaAnual = parseFloat(calc.tasa.value) || 0;
-    const tasaAct = calc.tasaActual ? (parseFloat(calc.tasaActual.value) || 0) : 0;
-
-    if (calc.valorVal) calc.valorVal.textContent = fmtMXN.format(monto);
-    if (calc.tasaVal)  calc.tasaVal.textContent  = tasaAnual.toFixed(1) + '%';
-    if (calc.tasaActualVal) calc.tasaActualVal.textContent = tasaAct.toFixed(1) + '%';
-
-    const n = plazo * 12;
-    const pagoHip = pagoMensual(monto, tasaAnual, n);
-    const seguros = (monto / 1_000_000) * 2000;
-    const mensual = pagoHip + seguros;
-    const total   = mensual * n;
-
-    const mensualActual = pagoMensual(monto, tasaAct, n) + seguros;
-    const ahorroMes = Math.max(0, mensualActual - mensual);
-    const ahorroTot = ahorroMes * n;
-
-    if (calc.rHip)     calc.rHip.textContent     = fmtMXN.format(pagoHip);
-    if (calc.rSeg)     calc.rSeg.textContent     = fmtMXN.format(seguros);
-    if (calc.rTotal)   calc.rTotal.textContent   = fmtMXN.format(total);
-    if (calc.rMensual) calc.rMensual.textContent = fmtMXN.format(mensual);
-    if (calc.rActual)  calc.rActual.textContent  = fmtMXN.format(mensualActual);
-    if (calc.rAhorro)  calc.rAhorro.textContent  = fmtMXN.format(ahorroMes) + '/mes';
-    if (calc.rAhorroTotal) calc.rAhorroTotal.textContent = ahorroMes > 0
-      ? '≈ ' + fmtMXN.format(ahorroTot) + ' en ' + plazo + ' años'
-      : 'Sube tu tasa actual para ver el ahorro';
-  };
-
-  [calc.valor, calc.tasa, calc.tasaActual].forEach(el => el && el.addEventListener('input', compute));
-  calc.chips.forEach(c => {
-    c.addEventListener('click', () => {
-      calc.chips.forEach(x => x.classList.remove('is-active'));
-      c.classList.add('is-active');
-      plazo = parseInt(c.dataset.plazo, 10) || 15;
-      compute();
+  if (sim.vivienda) {
+    const TASA = 0.105, APERTURA = 0.01, VIDA_M = 440, DANOS_M = 450, LTV_MAX = 0.90;
+    const DEF = { vivienda: 2500000, monto: 2000000, plazo: 20 };
+    let plazoSim = 20;
+    const setFill = (el) => {
+      const min = +el.min, max = +el.max, v = +el.value;
+      el.style.setProperty('--p', ((v - min) / (max - min) * 100) + '%');
+    };
+    const pagoSim = (P, n) => {
+      const r = TASA / 12;
+      const p = P * (r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
+      return (!isFinite(p) || p < 0) ? 0 : p;
+    };
+    const computeSim = () => {
+      const V = +sim.vivienda.value, P = +sim.monto.value;
+      setFill(sim.vivienda); setFill(sim.monto);
+      sim.viviendaVal.textContent = fmtMXN.format(V);
+      sim.montoVal.textContent = fmtMXN.format(P);
+      const ltv = V > 0 ? P / V : 0;
+      const over = ltv > LTV_MAX + 1e-9;
+      sim.ltv.innerHTML = over
+        ? 'El financiamiento m&aacute;ximo es 90% del valor. <strong>Baja el monto.</strong>'
+        : 'Financiamiento: <strong>' + Math.round(ltv * 100) + '%</strong> del valor de la vivienda';
+      sim.ltv.classList.toggle('is-over', over);
+      if (over) { sim.ltv.classList.remove('is-shake'); void sim.ltv.offsetWidth; sim.ltv.classList.add('is-shake'); }
+      const n = plazoSim * 12;
+      const M = pagoSim(P, n);
+      const vida = (P / 1e6) * VIDA_M;
+      const danos = (V / 1e6) * DANOS_M;
+      const total = M + vida + danos;
+      const enganche = Math.max(0, V - P);
+      const segAnual = (vida + danos) * 12;
+      const aperturaPro = (APERTURA * P) / plazoSim;
+      const cat = P > 0 ? (TASA * 100) + (segAnual / P * 100) + (aperturaPro / P * 100) : 0;
+      sim.capital.textContent = fmtMXN.format(M);
+      sim.vida.textContent = fmtMXN.format(vida);
+      sim.danos.textContent = fmtMXN.format(danos);
+      sim.total.textContent = fmtMXN.format(total);
+      sim.enganche.textContent = fmtMXN.format(enganche);
+      sim.cat.textContent = cat.toFixed(2) + '%';
+    };
+    [sim.vivienda, sim.monto].forEach(el => el.addEventListener('input', computeSim));
+    sim.pills.forEach(p => p.addEventListener('click', () => {
+      sim.pills.forEach(x => x.classList.remove('is-active'));
+      p.classList.add('is-active');
+      plazoSim = parseInt(p.dataset.plazo, 10) || 20;
+      computeSim();
+    }));
+    if (sim.reset) sim.reset.addEventListener('click', () => {
+      sim.vivienda.value = DEF.vivienda; sim.monto.value = DEF.monto; plazoSim = DEF.plazo;
+      sim.pills.forEach(x => x.classList.toggle('is-active', +x.dataset.plazo === DEF.plazo));
+      computeSim();
     });
-  });
-  compute();
+    computeSim();
+  }
 
   /* ============================================================
      FAQ ACCORDION (single open)
@@ -448,7 +438,7 @@
       }
 
       // Calc panel
-      const calcPanel = $('.calc__panel');
+      const calcPanel = $('.sim');
       if (calcPanel) {
         gsap.fromTo(calcPanel,
           { y: 60, autoAlpha: 0 },

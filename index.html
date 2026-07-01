@@ -621,76 +621,76 @@ n  <!-- deploy-marker: 4b0c071 force-rebuild -->
 
     <!-- ============ § 9 · CALCULADORA ============ -->
     <section class="calc" id="calculadora">
-      <div class="container calc__grid">
-        <div class="calc__intro">
-          <span class="eyebrow"><span class="dot"></span> Simulador · CDMX</span>
+      <div class="container">
+        <header class="section-head">
+          <span class="eyebrow"><span class="dot"></span> Simulador &middot; CDMX</span>
           <h2>Calcula tu <em>pago mensual de hipoteca</em> en 30 segundos.</h2>
-          <p>Estimado preliminar con tasas vigentes en Ciudad de México y resto del país.</p>
-          <div class="calc__visual">
-            <img src="fotos/imgi_3_Celular-Credimejora.png" alt="Simulador hipoteca CDMX" loading="lazy" />
+          <p>Estimado preliminar con tasas vigentes en CDMX y todo M&eacute;xico. Ajusta los valores y mira tu pago al instante.</p>
+        </header>
+
+        <div class="sim" id="simForm">
+          <button type="button" class="sim__reset" id="simReset">Reset <i class="fas fa-rotate-left"></i></button>
+
+          <div class="sim__controls">
+            <div class="sim__banks">
+              <span class="sim__banks-label">Trabajamos con</span>
+              <div class="sim__banks-row">
+            <img src="assets/logos/banorte.png" alt="Banorte" loading="lazy" />
+            <img src="assets/logos/scotiabank.png" alt="Scotiabank" loading="lazy" />
+            <img src="assets/logos/santander.png" alt="Santander" loading="lazy" />
+            <img src="assets/logos/hsbc.png" alt="HSBC" loading="lazy" />
+            <img src="assets/logos/banamex.png" alt="Banamex" loading="lazy" />
+            <img src="assets/logos/afirme.png" alt="Afirme" loading="lazy" />
+            <img src="assets/logos/banca-mifel.png" alt="Banca Mifel" loading="lazy" />
+              </div>
+            </div>
+
+            <div class="sim__field">
+              <div class="sim__field-head">
+                <label for="simVivienda">Valor de la vivienda</label>
+                <strong id="simViviendaVal">$2,500,000</strong>
+              </div>
+              <input type="range" class="sim__range" id="simVivienda" min="600000" max="20000000" step="100000" value="2500000" aria-label="Valor de la vivienda" />
+              <div class="sim__range-meta"><span>$600K</span><span>$20M</span></div>
+            </div>
+
+            <div class="sim__field">
+              <div class="sim__field-head">
+                <label for="simMonto">Monto del cr&eacute;dito</label>
+                <strong id="simMontoVal">$2,000,000</strong>
+              </div>
+              <input type="range" class="sim__range" id="simMonto" min="500000" max="15000000" step="100000" value="2000000" aria-label="Monto del cr&eacute;dito" />
+              <div class="sim__range-meta"><span>$500K</span><span>$15M</span></div>
+              <p class="sim__ltv" id="simLtv">Financiamiento: <strong>80%</strong> del valor de la vivienda</p>
+            </div>
+
+            <div class="sim__field sim__field--pills">
+              <label>Plazo</label>
+              <div class="sim__pills">
+                <button type="button" class="sim__pill" data-plazo="10">10 a&ntilde;os</button>
+                <button type="button" class="sim__pill" data-plazo="15">15 a&ntilde;os</button>
+                <button type="button" class="sim__pill is-active" data-plazo="20">20 a&ntilde;os</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="sim__result">
+            <span class="sim__result-eyebrow">Pago mensual estimado</span>
+            <div class="sim__result-total"><span id="simTotal">$21,973</span><small>/mes</small></div>
+            <ul class="sim__breakdown">
+              <li><span>Capital + intereses</span><strong id="simCapital">$19,968</strong></li>
+              <li><span>Seguro de vida</span><strong id="simVida">$880</strong></li>
+              <li><span>Seguro de da&ntilde;os</span><strong id="simDanos">$1,125</strong></li>
+            </ul>
+            <div class="sim__breakdown-div"></div>
+            <ul class="sim__breakdown sim__breakdown--sec">
+              <li><span>CAT estimado</span><strong id="simCat">11.75%</strong></li>
+              <li><span>Enganche requerido</span><strong id="simEnganche">$500,000</strong></li>
+            </ul>
+            <p class="sim__disclaimer">Tasa 10.5% anual fija + seguros obligatorios (vida $440/M cr&eacute;dito &middot; da&ntilde;os $450/M valor vivienda). Tu tasa real puede ser hasta 1.5 puntos m&aacute;s baja comparando +5 bancos por ti.</p>
+            <a class="sim__cta magnetic" href="https://api.leadconnectorhq.com/widget/bookings/luis-valades-personal-calendar" target="_blank" rel="noopener">Precalif&iacute;cate <span class="sim__cta-icon"><i class="fas fa-arrow-right"></i></span></a>
           </div>
         </div>
-
-        <form class="calc__panel glossy neon-ring" id="calcForm" onsubmit="return false;">
-          <div class="field field--range">
-            <label for="valor">Monto del crédito <strong id="valorVal">$1,500,000</strong></label>
-            <input type="range" id="valor" min="300000" max="15000000" step="50000" value="1500000" />
-            <div class="field__range-meta">
-              <span>$300,000</span>
-              <span>$15,000,000</span>
-            </div>
-          </div>
-
-          <div class="field field--range">
-            <label for="tasaActual">Tu tasa actual (o la de tu banco) <strong id="tasaActualVal">12.5%</strong></label>
-            <input type="range" id="tasaActual" min="9" max="16" step="0.1" value="12.5" />
-          </div>
-
-          <div class="field field--range">
-            <label for="tasa">Tasa estimada conmigo <strong id="tasaVal">10.5%</strong></label>
-            <input type="range" id="tasa" min="8" max="14" step="0.1" value="10.5" />
-          </div>
-
-          <div class="field">
-            <label>Plazo</label>
-            <div class="chips">
-              <button type="button" class="chip" data-plazo="10">10</button>
-              <button type="button" class="chip is-active" data-plazo="15">15</button>
-              <button type="button" class="chip" data-plazo="20">20</button>
-              <button type="button" class="chip" data-plazo="25">25</button>
-              <span class="chips__caption">años</span>
-            </div>
-          </div>
-
-          <div class="calc__results">
-            <div class="calc__cmp">
-              <div class="calc__cmp-col">
-                <span class="calc__cmp-label">Tu pago hoy</span>
-                <strong id="rActual">$0</strong>
-              </div>
-              <span class="calc__cmp-arrow" aria-hidden="true"><i class="fas fa-arrow-right"></i></span>
-              <div class="calc__cmp-col calc__cmp-col--win">
-                <span class="calc__cmp-label">Estimado conmigo</span>
-                <strong id="rMensual">$0</strong>
-              </div>
-            </div>
-            <div class="calc__save" id="calcSave">
-              <span class="calc__save-label"><i class="fas fa-arrow-trend-down"></i> Ahorro estimado</span>
-              <strong id="rAhorro">$0</strong>
-              <small id="rAhorroTotal">al mes</small>
-            </div>
-            <div class="calc__breakdown">
-              <div class="calc__row"><span>Capital + interés (conmigo)</span><strong id="rHip">$0</strong></div>
-              <div class="calc__row"><span>Seguros y comisiones</span><strong id="rSeg">$0</strong></div>
-              <div class="calc__row"><span>Total a pagar (plazo completo)</span><strong id="rTotal">$0</strong></div>
-            </div>
-          </div>
-
-          <a class="btn btn--sage btn--block magnetic" href="https://api.leadconnectorhq.com/widget/bookings/luis-valades-personal-calendar" target="_blank" rel="noopener">
-            <i class="fas fa-calendar-check"></i><span>Quiero cotización real</span>
-          </a>
-          <p class="calc__legal">Cálculo estimado. Condiciones reales sujetas a aprobación.</p>
-        </form>
       </div>
     </section>
 
