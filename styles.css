@@ -3054,9 +3054,9 @@ img, video, iframe { max-width: 100% !important; height: auto; }
 
 /* bancos */
 .sim__banks-label { font-family: var(--f-label); text-transform: uppercase; letter-spacing: .18em; font-size: .72rem; color: var(--text-soft); }
-.sim__banks-row { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .8rem 1rem; margin-top: .95rem; }
-.sim__banks-row img { height: 20px; width: auto; object-fit: contain; filter: grayscale(1); opacity: .5; transition: filter .3s ease, opacity .3s ease, transform .3s ease; }
-.sim__banks-row img:hover { filter: grayscale(0); opacity: 1; transform: translateY(-2px); }
+.sim__banks-row { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .7rem .7rem; margin-top: .95rem; }
+.sim__banks-row img { height: 23px; width: auto; object-fit: contain; filter: none; opacity: .92; transition: transform .38s cubic-bezier(.34,1.56,.64,1), opacity .3s ease; }
+.sim__banks-row img:hover { opacity: 1; transform: translateY(-5px) scale(1.06); }
 
 /* campos */
 .sim__field { display: flex; flex-direction: column; gap: .75rem; }
