@@ -2990,9 +2990,35 @@ img, video, iframe { max-width: 100% !important; height: auto; }
 .pcard__stats { border-top: 1px solid var(--line) !important; }
 .pcard__stats strong { color: var(--sage) !important; }
 .pcard__stats span   { color: var(--text-soft) !important; }
-/* CTA */
-.pcard__cta { color: var(--sage) !important; }
-.pcard__cta:hover { color: var(--moss) !important; }
-/* alinear stats + CTA al fondo en las 4 tarjetas (mismo alto de fila) */
+/* línea de beneficio (check) */
+.pcard__check {
+  display: flex; align-items: flex-start; gap: .5rem;
+  font-size: .82rem; color: var(--text); font-weight: 600;
+  line-height: 1.35; margin: .15rem 0 0 !important;
+}
+.pcard__check i { color: var(--sage) !important; font-size: .92rem; margin-top: .12rem; flex: none; }
+/* CTA · pill azul sutil */
+.pcard__cta {
+  align-self: flex-start; margin-top: 1.1rem !important;
+  padding: .58rem 1.1rem !important; border-radius: 999px !important;
+  color: var(--sage) !important; background: rgba(43,89,176,.07) !important;
+  border: 1px solid rgba(43,89,176,.20) !important;
+  transition: background .35s cubic-bezier(.32,.72,0,1), border-color .35s cubic-bezier(.32,.72,0,1), gap .25s ease, color .25s ease !important;
+}
+.pcard__cta:hover {
+  color: var(--moss) !important;
+  background: rgba(43,89,176,.13) !important;
+  border-color: rgba(43,89,176,.42) !important;
+}
+/* equalizar: bloque superior fijo, stats+CTA al fondo */
 .pcard__body { flex: 1 1 auto !important; }
-.pcard__desc { flex: 1 1 auto !important; }
+.pcard__desc { flex: 0 0 auto !important; }
+.pcard__stats { margin-top: auto !important; }
+
+/* Hashtags (#) del encabezado · chip con más presencia */
+.anaquel--light .anaquel__tag {
+  color: var(--moss);
+  background: rgba(255,255,255,.75);
+  border-color: rgba(43,89,176,.28);
+  box-shadow: 0 1px 2px rgba(9,12,20,.03);
+}
