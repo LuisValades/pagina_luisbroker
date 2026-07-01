@@ -2969,10 +2969,11 @@ img, video, iframe { max-width: 100% !important; height: auto; }
     0 34px 64px -30px rgba(9,12,20,.30),
     0 0 0 1px rgba(43,89,176,.07) !important;
 }
-/* foto · overlay muy sutil sólo abajo para legibilidad del badge */
+/* foto · levantar el tinte oscuro quemado + overlay mínimo sólo para el badge */
 .pcard__media { aspect-ratio: 16 / 11; }
+.pcard__media img { filter: brightness(1.18) saturate(1.28) contrast(1.03) !important; }
 .pcard__media::after {
-  background: linear-gradient(to top, rgba(9,12,20,.30) 0%, rgba(9,12,20,0) 48%) !important;
+  background: linear-gradient(to top, rgba(9,12,20,.20) 0%, rgba(9,12,20,0) 38%) !important;
 }
 /* badge · glass blanco con texto navy */
 .pcard__badge {
