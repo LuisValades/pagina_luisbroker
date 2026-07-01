@@ -3140,3 +3140,9 @@ img, video, iframe { max-width: 100% !important; height: auto; }
 
 /* simulador · confinar ancho (el reset * {max-width:100%!important} pisa .container) */
 .calc .container { max-width: 1200px !important; margin-left: auto !important; margin-right: auto !important; }
+
+/* anaqueles · grid de 5 productos (era 4) */
+.pcard-grid { grid-template-columns: repeat(5, 1fr) !important; }
+@media (max-width: 1080px) { .pcard-grid { grid-template-columns: repeat(3, 1fr) !important; } }
+@media (max-width: 760px)  { .pcard-grid { grid-template-columns: repeat(2, 1fr) !important; } }
+@media (max-width: 520px)  { .pcard-grid { grid-template-columns: 1fr !important; } }
