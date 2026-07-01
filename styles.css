@@ -3054,8 +3054,8 @@ img, video, iframe { max-width: 100% !important; height: auto; }
 
 /* bancos */
 .sim__banks-label { font-family: var(--f-label); text-transform: uppercase; letter-spacing: .18em; font-size: .72rem; color: var(--text-soft); }
-.sim__banks-row { display: flex; flex-wrap: wrap; align-items: center; gap: 1.1rem 1.7rem; margin-top: .95rem; }
-.sim__banks-row img { height: 23px; width: auto; object-fit: contain; filter: grayscale(1); opacity: .5; transition: filter .3s ease, opacity .3s ease, transform .3s ease; }
+.sim__banks-row { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .8rem 1rem; margin-top: .95rem; }
+.sim__banks-row img { height: 20px; width: auto; object-fit: contain; filter: grayscale(1); opacity: .5; transition: filter .3s ease, opacity .3s ease, transform .3s ease; }
 .sim__banks-row img:hover { filter: grayscale(0); opacity: 1; transform: translateY(-2px); }
 
 /* campos */
@@ -3137,3 +3137,6 @@ img, video, iframe { max-width: 100% !important; height: auto; }
   .sim__field-head { flex-direction: column; align-items: flex-start; gap: .15rem; }
   .sim__field-head strong { font-size: 1.5rem; }
 }
+
+/* simulador · confinar ancho (el reset * {max-width:100%!important} pisa .container) */
+.calc .container { max-width: 1200px !important; margin-left: auto !important; margin-right: auto !important; }
