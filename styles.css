@@ -3146,3 +3146,9 @@ img, video, iframe { max-width: 100% !important; height: auto; }
 @media (max-width: 1080px) { .pcard-grid { grid-template-columns: repeat(3, 1fr) !important; } }
 @media (max-width: 760px)  { .pcard-grid { grid-template-columns: repeat(2, 1fr) !important; } }
 @media (max-width: 520px)  { .pcard-grid { grid-template-columns: 1fr !important; } }
+
+/* anaqueles · layout 3+2 (5 productos) — tarjetas anchas, ultima fila centrada
+   OJO: el reset * {max-width:100%!important} pisa max-width -> !important obligatorio */
+.pcard-grid { display: flex !important; flex-wrap: wrap; justify-content: center; gap: clamp(1.3rem, 1.6vw, 1.9rem); }
+.pcard-grid .pcard { flex: 1 1 330px; max-width: 384px !important; }
+@media (max-width: 520px) { .pcard-grid .pcard { flex-basis: 100%; max-width: 100% !important; } }
