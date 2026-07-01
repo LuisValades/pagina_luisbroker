@@ -3152,3 +3152,10 @@ img, video, iframe { max-width: 100% !important; height: auto; }
 .pcard-grid { display: flex !important; flex-wrap: wrap; justify-content: center; gap: clamp(1.3rem, 1.6vw, 1.9rem); }
 .pcard-grid .pcard { flex: 1 1 330px; max-width: 384px !important; }
 @media (max-width: 520px) { .pcard-grid .pcard { flex-basis: 100%; max-width: 100% !important; } }
+
+/* anaqueles · 5 en UNA fila pareja + contenedor mas ancho (Luis pidio filas parejas, no 3+2) */
+.anaquel .container { max-width: 1400px !important; }
+.pcard-grid { display: grid !important; grid-template-columns: repeat(5, 1fr) !important; gap: clamp(.9rem, 1.1vw, 1.3rem) !important; justify-content: initial !important; }
+.pcard-grid .pcard { max-width: none !important; flex: initial !important; }
+@media (max-width: 1180px) { .pcard-grid { grid-template-columns: repeat(2, 1fr) !important; } }
+@media (max-width: 560px)  { .pcard-grid { grid-template-columns: 1fr !important; } }
