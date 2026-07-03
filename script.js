@@ -360,7 +360,7 @@
         gsap.fromTo(head,
           { y: 18, autoAlpha: 0 },
           { y: 0, autoAlpha: 1, duration: 1.4, ease: 'power2.out',
-            scrollTrigger: { trigger: head, start: 'top 88%', once: true } }
+            scrollTrigger: { trigger: head, start: 'top 95%', end: 'top 60%', scrub: .8 } }
         );
       });
 
@@ -384,14 +384,14 @@
         gsap.fromTo(card,
           { y: 18, autoAlpha: 0 },
           { y: 0, autoAlpha: 1, duration: 1.4, ease: 'power2.out', delay: i * .12,
-            scrollTrigger: { trigger: '.features__grid', start: 'top 85%', once: true } }
+            scrollTrigger: { trigger: '.features__grid', start: 'top 95%', end: 'top 60%', scrub: .8 } }
         );
         const icon = card.querySelector('.feature-card__icon');
         if (icon) {
           gsap.fromTo(icon,
             { scale: .5, rotate: -25, autoAlpha: 0 },
             { scale: 1, rotate: 0, autoAlpha: 1, duration: 1.4, ease: 'power2.out', delay: i * .12 + .15,
-              scrollTrigger: { trigger: '.features__grid', start: 'top 85%', once: true } }
+              scrollTrigger: { trigger: '.features__grid', start: 'top 95%', end: 'top 60%', scrub: .8 } }
           );
         }
       });
@@ -401,14 +401,14 @@
         gsap.fromTo(card.querySelector('.anaquel__shell'),
           { y: 80, autoAlpha: 0, scale: .96 },
           { y: 0, autoAlpha: 1, scale: 1, duration: 1.4, ease: 'power2.out',
-            scrollTrigger: { trigger: card, start: 'top 85%', once: true } }
+            scrollTrigger: { trigger: card, start: 'top 95%', end: 'top 60%', scrub: .8 } }
         );
         const tabs = card.querySelectorAll('.anaquel__tab');
         if (tabs.length) {
           gsap.fromTo(tabs,
             { x: -24, autoAlpha: 0 },
             { x: 0, autoAlpha: 1, duration: 1.4, stagger: .12, ease: 'power2.out',
-              scrollTrigger: { trigger: card, start: 'top 75%', once: true } }
+              scrollTrigger: { trigger: card, start: 'top 95%', end: 'top 60%', scrub: .8 } }
           );
         }
         const stats = card.querySelectorAll('.anaquel__statCell');
@@ -416,7 +416,7 @@
           gsap.fromTo(stats,
             { y: 18, autoAlpha: 0 },
             { y: 0, autoAlpha: 1, duration: 1.4, stagger: .26, ease: 'power2.out',
-              scrollTrigger: { trigger: card, start: 'top 70%', once: true } }
+              scrollTrigger: { trigger: card, start: 'top 95%', end: 'top 60%', scrub: .8 } }
           );
         }
       });
@@ -427,7 +427,7 @@
         gsap.fromTo(step,
           { x: isEven ? 50 : -50, autoAlpha: 0 },
           { x: 0, autoAlpha: 1, duration: 1.4, ease: 'power2.out',
-            scrollTrigger: { trigger: step, start: 'top 88%', once: true } }
+            scrollTrigger: { trigger: step, start: 'top 95%', end: 'top 60%', scrub: .8 } }
         );
       });
       const tlCta = $('.timeline__cta');
@@ -435,7 +435,7 @@
         gsap.fromTo(tlCta,
           { y: 18, autoAlpha: 0 },
           { y: 0, autoAlpha: 1, duration: 1.4, ease: 'power2.out',
-            scrollTrigger: { trigger: tlCta, start: 'top 92%', once: true } }
+            scrollTrigger: { trigger: tlCta, start: 'top 95%', end: 'top 60%', scrub: .8 } }
         );
       }
 
@@ -445,23 +445,23 @@
         gsap.fromTo(calcPanel,
           { y: 18, autoAlpha: 0 },
           { y: 0, autoAlpha: 1, duration: 1.4, ease: 'power2.out',
-            scrollTrigger: { trigger: '.calc', start: 'top 75%', once: true } }
+            scrollTrigger: { trigger: '.calc', start: 'top 95%', end: 'top 60%', scrub: .8 } }
         );
       }
 
       // Bio
       const bioPhoto = $('.bio__photo');
       const bioText = $('.bio__text');
-      if (bioPhoto) gsap.fromTo(bioPhoto, { x: -24, autoAlpha: 0 }, { x: 0, autoAlpha: 1, duration: 1.4, ease: 'power2.out', scrollTrigger: { trigger: '.bio', start: 'top 75%', once: true } });
-      if (bioText) gsap.fromTo(bioText, { x: 24, autoAlpha: 0 }, { x: 0, autoAlpha: 1, duration: 1.4, ease: 'power2.out', scrollTrigger: { trigger: '.bio', start: 'top 75%', once: true } });
-      gsap.fromTo('.bio__pillars > div', { y: 18, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 1.4, stagger: .26, ease: 'power2.out', scrollTrigger: { trigger: '.bio__pillars', start: 'top 85%', once: true } });
+      if (bioPhoto) gsap.fromTo(bioPhoto, { x: -24, autoAlpha: 0 }, { x: 0, autoAlpha: 1, duration: 1.4, ease: 'power2.out', scrollTrigger: { trigger: '.bio', start: 'top 95%', end: 'top 60%', scrub: .8 } });
+      if (bioText) gsap.fromTo(bioText, { x: 24, autoAlpha: 0 }, { x: 0, autoAlpha: 1, duration: 1.4, ease: 'power2.out', scrollTrigger: { trigger: '.bio', start: 'top 95%', end: 'top 60%', scrub: .8 } });
+      gsap.fromTo('.bio__pillars > div', { y: 18, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 1.4, stagger: .26, ease: 'power2.out', scrollTrigger: { trigger: '.bio__pillars', start: 'top 95%', end: 'top 60%', scrub: .8 } });
 
       // Quotes
       gsap.utils.toArray('.quote').forEach((q, i) => {
         gsap.fromTo(q,
           { y: 18, autoAlpha: 0 },
           { y: 0, autoAlpha: 1, duration: 1.4, ease: 'power2.out', delay: i * .12,
-            scrollTrigger: { trigger: '.testimonios__grid', start: 'top 80%', once: true } }
+            scrollTrigger: { trigger: '.testimonios__grid', start: 'top 95%', end: 'top 60%', scrub: .8 } }
         );
       });
 
@@ -469,7 +469,7 @@
       gsap.fromTo('.faq__item',
         { y: 18, autoAlpha: 0 },
         { y: 0, autoAlpha: 1, duration: 1.4, stagger: .12, ease: 'power2.out',
-          scrollTrigger: { trigger: '.faq__list', start: 'top 85%', once: true } }
+          scrollTrigger: { trigger: '.faq__list', start: 'top 95%', end: 'top 60%', scrub: .8 } }
       );
 
       // CTA final
@@ -478,7 +478,7 @@
         gsap.fromTo(ctaFinal.querySelectorAll('h2, p, .btn, .eyebrow'),
           { y: 18, autoAlpha: 0 },
           { y: 0, autoAlpha: 1, duration: 1.4, stagger: .26, ease: 'power2.out',
-            scrollTrigger: { trigger: ctaFinal, start: 'top 80%', once: true } }
+            scrollTrigger: { trigger: ctaFinal, start: 'top 95%', end: 'top 60%', scrub: .8 } }
         );
       }
     } else {
