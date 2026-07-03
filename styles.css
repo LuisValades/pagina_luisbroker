@@ -3191,3 +3191,21 @@ img, video, iframe { max-width: 100% !important; height: auto; }
 .metrics__head h2, .faq__head h2, .bio__text h2, .cta-final h2 {
   font-size: clamp(1.6rem, 1.05rem + 1.2vw, 2.05rem) !important;
 }
+
+/* ============================================================
+   § 1A · AIRE EDITORIAL (padding vertical premium + contenedor unificado)
+   ============================================================ */
+/* contenedor 1200 unificado (anaqueles queda en 1400 para la fila de 5 aprobada) */
+.features .container, .metrics .container, .timeline .container, .bio .container,
+.testimonios .container, .faq .container, .cta-final .container {
+  max-width: 1200px !important; margin-left: auto !important; margin-right: auto !important;
+}
+/* aire vertical +40% desktop, moderado en movil */
+.features, .metrics, .timeline, .calc, .bio, .testimonios, .faq {
+  padding-top: clamp(5rem, 9vw, 11rem) !important;
+  padding-bottom: clamp(5rem, 9vw, 11rem) !important;
+}
+.anaquel { padding-block: clamp(4.5rem, 8vw, 10rem) !important; }
+.cta-final { padding-top: clamp(6rem, 10vw, 12rem) !important; padding-bottom: clamp(6rem, 10vw, 12rem) !important; }
+/* encabezados de seccion con mas aire abajo */
+.section-head { margin-bottom: clamp(3rem, 5vw, 4.75rem) !important; }

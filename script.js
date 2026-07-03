@@ -358,8 +358,8 @@
       // Section heads
       gsap.utils.toArray('.section-head').forEach(head => {
         gsap.fromTo(head,
-          { y: 40, autoAlpha: 0 },
-          { y: 0, autoAlpha: 1, duration: 1, ease: 'power3.out',
+          { y: 18, autoAlpha: 0 },
+          { y: 0, autoAlpha: 1, duration: 1.4, ease: 'power2.out',
             scrollTrigger: { trigger: head, start: 'top 88%', once: true } }
         );
       });
@@ -368,7 +368,7 @@
       $$('.metric').forEach((el, i) => {
         gsap.fromTo(el,
           { y: 50, autoAlpha: 0 },
-          { y: 0, autoAlpha: 1, duration: .9, ease: 'power3.out', delay: i * .12,
+          { y: 0, autoAlpha: 1, duration: 1.4, ease: 'power2.out', delay: i * .12,
             scrollTrigger: { trigger: '.metrics__grid', start: 'top 80%', once: true,
               onEnter: () => {
                 const num = el.querySelector('.metric__num');
@@ -382,15 +382,15 @@
       // Feature cards
       gsap.utils.toArray('.feature-card').forEach((card, i) => {
         gsap.fromTo(card,
-          { y: 60, autoAlpha: 0 },
-          { y: 0, autoAlpha: 1, duration: .9, ease: 'power3.out', delay: i * .12,
+          { y: 18, autoAlpha: 0 },
+          { y: 0, autoAlpha: 1, duration: 1.4, ease: 'power2.out', delay: i * .12,
             scrollTrigger: { trigger: '.features__grid', start: 'top 85%', once: true } }
         );
         const icon = card.querySelector('.feature-card__icon');
         if (icon) {
           gsap.fromTo(icon,
             { scale: .5, rotate: -25, autoAlpha: 0 },
-            { scale: 1, rotate: 0, autoAlpha: 1, duration: .8, ease: 'back.out(1.7)', delay: i * .12 + .15,
+            { scale: 1, rotate: 0, autoAlpha: 1, duration: 1.4, ease: 'power2.out', delay: i * .12 + .15,
               scrollTrigger: { trigger: '.features__grid', start: 'top 85%', once: true } }
           );
         }
@@ -400,22 +400,22 @@
       gsap.utils.toArray('.anaquel').forEach((card) => {
         gsap.fromTo(card.querySelector('.anaquel__shell'),
           { y: 80, autoAlpha: 0, scale: .96 },
-          { y: 0, autoAlpha: 1, scale: 1, duration: 1.2, ease: 'power3.out',
+          { y: 0, autoAlpha: 1, scale: 1, duration: 1.4, ease: 'power2.out',
             scrollTrigger: { trigger: card, start: 'top 85%', once: true } }
         );
         const tabs = card.querySelectorAll('.anaquel__tab');
         if (tabs.length) {
           gsap.fromTo(tabs,
-            { x: -30, autoAlpha: 0 },
-            { x: 0, autoAlpha: 1, duration: .6, stagger: .08, ease: 'power2.out',
+            { x: -24, autoAlpha: 0 },
+            { x: 0, autoAlpha: 1, duration: 1.4, stagger: .12, ease: 'power2.out',
               scrollTrigger: { trigger: card, start: 'top 75%', once: true } }
           );
         }
         const stats = card.querySelectorAll('.anaquel__statCell');
         if (stats.length) {
           gsap.fromTo(stats,
-            { y: 20, autoAlpha: 0 },
-            { y: 0, autoAlpha: 1, duration: .55, stagger: .1, ease: 'back.out(1.5)',
+            { y: 18, autoAlpha: 0 },
+            { y: 0, autoAlpha: 1, duration: 1.4, stagger: .26, ease: 'power2.out',
               scrollTrigger: { trigger: card, start: 'top 70%', once: true } }
           );
         }
@@ -426,15 +426,15 @@
         const isEven = (i + 1) % 2 === 0;
         gsap.fromTo(step,
           { x: isEven ? 50 : -50, autoAlpha: 0 },
-          { x: 0, autoAlpha: 1, duration: .8, ease: 'power3.out',
+          { x: 0, autoAlpha: 1, duration: 1.4, ease: 'power2.out',
             scrollTrigger: { trigger: step, start: 'top 88%', once: true } }
         );
       });
       const tlCta = $('.timeline__cta');
       if (tlCta) {
         gsap.fromTo(tlCta,
-          { y: 20, autoAlpha: 0 },
-          { y: 0, autoAlpha: 1, duration: .8, ease: 'power3.out',
+          { y: 18, autoAlpha: 0 },
+          { y: 0, autoAlpha: 1, duration: 1.4, ease: 'power2.out',
             scrollTrigger: { trigger: tlCta, start: 'top 92%', once: true } }
         );
       }
@@ -443,8 +443,8 @@
       const calcPanel = $('.sim');
       if (calcPanel) {
         gsap.fromTo(calcPanel,
-          { y: 60, autoAlpha: 0 },
-          { y: 0, autoAlpha: 1, duration: 1, ease: 'power3.out',
+          { y: 18, autoAlpha: 0 },
+          { y: 0, autoAlpha: 1, duration: 1.4, ease: 'power2.out',
             scrollTrigger: { trigger: '.calc', start: 'top 75%', once: true } }
         );
       }
@@ -452,23 +452,23 @@
       // Bio
       const bioPhoto = $('.bio__photo');
       const bioText = $('.bio__text');
-      if (bioPhoto) gsap.fromTo(bioPhoto, { x: -40, autoAlpha: 0 }, { x: 0, autoAlpha: 1, duration: 1, ease: 'power3.out', scrollTrigger: { trigger: '.bio', start: 'top 75%', once: true } });
-      if (bioText) gsap.fromTo(bioText, { x: 40, autoAlpha: 0 }, { x: 0, autoAlpha: 1, duration: 1, ease: 'power3.out', scrollTrigger: { trigger: '.bio', start: 'top 75%', once: true } });
-      gsap.fromTo('.bio__pillars > div', { y: 20, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: .55, stagger: .1, ease: 'power2.out', scrollTrigger: { trigger: '.bio__pillars', start: 'top 85%', once: true } });
+      if (bioPhoto) gsap.fromTo(bioPhoto, { x: -24, autoAlpha: 0 }, { x: 0, autoAlpha: 1, duration: 1.4, ease: 'power2.out', scrollTrigger: { trigger: '.bio', start: 'top 75%', once: true } });
+      if (bioText) gsap.fromTo(bioText, { x: 24, autoAlpha: 0 }, { x: 0, autoAlpha: 1, duration: 1.4, ease: 'power2.out', scrollTrigger: { trigger: '.bio', start: 'top 75%', once: true } });
+      gsap.fromTo('.bio__pillars > div', { y: 18, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 1.4, stagger: .26, ease: 'power2.out', scrollTrigger: { trigger: '.bio__pillars', start: 'top 85%', once: true } });
 
       // Quotes
       gsap.utils.toArray('.quote').forEach((q, i) => {
         gsap.fromTo(q,
-          { y: 40, autoAlpha: 0 },
-          { y: 0, autoAlpha: 1, duration: .8, ease: 'power3.out', delay: i * .12,
+          { y: 18, autoAlpha: 0 },
+          { y: 0, autoAlpha: 1, duration: 1.4, ease: 'power2.out', delay: i * .12,
             scrollTrigger: { trigger: '.testimonios__grid', start: 'top 80%', once: true } }
         );
       });
 
       // FAQ items
       gsap.fromTo('.faq__item',
-        { y: 30, autoAlpha: 0 },
-        { y: 0, autoAlpha: 1, duration: .65, stagger: .08, ease: 'power3.out',
+        { y: 18, autoAlpha: 0 },
+        { y: 0, autoAlpha: 1, duration: 1.4, stagger: .12, ease: 'power2.out',
           scrollTrigger: { trigger: '.faq__list', start: 'top 85%', once: true } }
       );
 
@@ -476,8 +476,8 @@
       const ctaFinal = $('.cta-final');
       if (ctaFinal) {
         gsap.fromTo(ctaFinal.querySelectorAll('h2, p, .btn, .eyebrow'),
-          { y: 30, autoAlpha: 0 },
-          { y: 0, autoAlpha: 1, duration: .8, stagger: .12, ease: 'power3.out',
+          { y: 18, autoAlpha: 0 },
+          { y: 0, autoAlpha: 1, duration: 1.4, stagger: .26, ease: 'power2.out',
             scrollTrigger: { trigger: ctaFinal, start: 'top 80%', once: true } }
         );
       }
