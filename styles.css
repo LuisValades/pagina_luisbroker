@@ -3284,3 +3284,38 @@ h1, h2, h3 { letter-spacing: -0.02em; }
 /* footer acc: titulos 1 linea */
 .footer__acc summary { font-size: .9rem; letter-spacing: .14em; white-space: nowrap; }
 .footer h4 { font-size: .9rem !important; letter-spacing: .14em !important; }
+
+/* ============================================================
+   § MÓVIL · portafolio como carrusel nativo (snap, Android+iOS)
+   ============================================================ */
+@media (max-width: 700px) {
+  .pcard-grid {
+    display: flex !important;
+    flex-wrap: nowrap !important;        /* anula el wrap del layout 3+2 viejo */
+    justify-content: flex-start !important;
+    width: 100vw !important;
+    max-width: 100vw !important;         /* anula el reset universal max-width:100% */
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;   /* momentum iOS */
+    overscroll-behavior-x: contain;      /* no jala la página (Android) */
+    gap: .9rem !important;
+    /* full-bleed: las tarjetas asoman desde el borde de pantalla */
+    margin-left: calc(50% - 50vw) !important;
+    margin-right: calc(50% - 50vw) !important;
+    padding: .25rem max(1.25rem, calc(50vw - 50%)) 1.5rem;
+    scroll-padding-left: max(1.25rem, calc(50vw - 50%));
+    scrollbar-width: none;
+  }
+  .pcard-grid::-webkit-scrollbar { display: none; }
+  .pcard-grid .pcard {
+    flex: 0 0 min(82vw, 340px) !important;
+    max-width: none !important;
+    scroll-snap-align: center;
+    -webkit-tap-highlight-color: transparent;
+  }
+  /* feedback táctil (no hay hover en touch) */
+  .pcard:active { transform: scale(.985) !important; transition: transform .18s ease !important; }
+  /* CTA ancho completo = alcanzable con el pulgar */
+  .pcard__cta { align-self: stretch !important; justify-content: center !important; }
+}
