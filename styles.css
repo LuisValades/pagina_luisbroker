@@ -3257,3 +3257,30 @@ h1, h2, h3 { letter-spacing: -0.02em; }
 }
 /* B · numeros tabulares (alineacion de cifras tipo banca) */
 .sim__result, .sim__field-head strong, .pcard__stats strong, .metric__num, .prod-foot__stats strong { font-variant-numeric: tabular-nums; }
+
+/* ============================================================
+   § FOOTER compacto + columnas de creditos desplegables
+   ============================================================ */
+.footer { padding: clamp(2.5rem, 4vw, 3.5rem) 0 1.5rem !important; }
+.footer__grid { padding-bottom: 1.8rem !important; gap: 2rem 2.5rem !important; align-items: start; }
+.footer__brand p { margin-top: .7rem !important; }
+.socials { margin-top: .9rem !important; }
+.socials a { width: 42px !important; height: 42px !important; font-size: 1.1rem !important; }
+.footer__legal { margin-top: 1.4rem !important; padding-top: 1.2rem !important; }
+/* desplegables */
+.footer__acc summary {
+  list-style: none; cursor: pointer; user-select: none;
+  display: flex; align-items: center; gap: .6rem;
+  font-family: var(--f-label); font-size: 1.05rem; font-weight: 400;
+  letter-spacing: .22em; text-transform: uppercase; color: var(--sage-3);
+  padding: .3rem 0;
+}
+.footer__acc summary::-webkit-details-marker { display: none; }
+.footer__acc summary i { font-size: .7rem; transition: transform .35s cubic-bezier(.32,.72,0,1); }
+.footer__acc[open] summary i { transform: rotate(180deg); }
+.footer__acc summary:hover { color: var(--cream); }
+.footer__acc ul { margin-top: .9rem !important; }
+
+/* footer acc: titulos 1 linea */
+.footer__acc summary { font-size: .9rem; letter-spacing: .14em; white-space: nowrap; }
+.footer h4 { font-size: .9rem !important; letter-spacing: .14em !important; }
