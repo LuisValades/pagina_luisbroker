@@ -3209,3 +3209,51 @@ img, video, iframe { max-width: 100% !important; height: auto; }
 .cta-final { padding-top: clamp(6rem, 10vw, 12rem) !important; padding-bottom: clamp(6rem, 10vw, 12rem) !important; }
 /* encabezados de seccion con mas aire abajo */
 .section-head { margin-bottom: clamp(3rem, 5vw, 4.75rem) !important; }
+
+/* ============================================================
+   § A+B · SOBRIEDAD BANCARIA + CONFIANZA (estilo BBVA/banco)
+   ============================================================ */
+/* A · tipografia display bancaria (sans ancha, no condensada) */
+:root {
+  --f-display: 'Plus Jakarta Sans', 'Helvetica Neue', Arial, sans-serif;
+  --f-label:   'Plus Jakarta Sans', 'Helvetica Neue', Arial, sans-serif;
+}
+h1, h2, h3 { letter-spacing: -0.02em; }
+.hero__title { font-weight: 800; }
+
+/* A · cards flat (borde fino, sombra minima, sin glow ni anillo) */
+.pcard {
+  border-radius: 16px !important;
+  box-shadow: 0 1px 2px rgba(9,12,20,.04), 0 10px 28px -22px rgba(9,12,20,.14) !important;
+}
+.pcard::after { display: none !important; }
+.pcard:hover {
+  transform: translateY(-4px) !important;
+  border-color: var(--line-strong) !important;
+  box-shadow: 0 2px 4px rgba(9,12,20,.05), 0 18px 40px -26px rgba(9,12,20,.22) !important;
+}
+/* A · botones azul solido plano (sin gradiente/glow) */
+.btn--sage { background: var(--sage) !important; box-shadow: none !important; }
+.btn--sage:hover { background: var(--moss) !important; box-shadow: none !important; }
+.nav__menu-cta { background: var(--sage) !important; box-shadow: none !important; }
+/* A · fuera anillos neon y sombras teatrales */
+.neon-ring::before { display: none !important; }
+.sim { box-shadow: 0 1px 2px rgba(9,12,20,.04), 0 14px 36px -26px rgba(9,12,20,.16) !important; }
+.sim__result { box-shadow: inset 0 1px 0 rgba(255,255,255,.06), 0 12px 30px -22px rgba(9,12,20,.4) !important; }
+.sim__pill.is-active, .sim__cta { box-shadow: none !important; }
+.quote { box-shadow: 0 1px 2px rgba(9,12,20,.04) !important; }
+
+/* B · trust bar */
+.trustbar { background: var(--paper); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 1.1rem 0; }
+.trustbar__row { display: flex; flex-wrap: wrap; justify-content: center; gap: .9rem 2.75rem; max-width: 1200px !important; margin-left: auto !important; margin-right: auto !important; }
+.trustbar__row span { display: inline-flex; align-items: center; gap: .55rem; font-size: .88rem; font-weight: 600; color: var(--text-soft); }
+.trustbar__row i { color: var(--sage); font-size: 1rem; }
+@media (max-width: 600px) { .trustbar__row { gap: .7rem 1.3rem; } .trustbar__row span { font-size: .8rem; } }
+
+/* B · legal tipo banco en footer */
+.footer__legal {
+  font-size: .74rem; line-height: 1.65; color: rgba(220,230,245,.45);
+  margin: 2.2rem 0 0; padding-top: 1.6rem; border-top: 1px solid rgba(255,255,255,.08);
+}
+/* B · numeros tabulares (alineacion de cifras tipo banca) */
+.sim__result, .sim__field-head strong, .pcard__stats strong, .metric__num, .prod-foot__stats strong { font-variant-numeric: tabular-nums; }
