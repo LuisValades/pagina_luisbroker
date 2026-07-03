@@ -50,6 +50,8 @@
       });
     }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
     map.forEach((a, t) => spy.observe(t));
+    // estado activo inicial (antes el nav arrancaba vacio hasta scrollear)
+    if (window.scrollY < 300) links[0].classList.add('is-active');
   })();
 
   /* ---------- mobile menu toggle ---------- */
