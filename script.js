@@ -499,3 +499,60 @@
   }
 
 })();
+
+/* ============================================================
+   CARRUSEL PRODUCTOS MÓVIL · dots + autoplay 2.5s
+   ============================================================ */
+(function () {
+  var mq = window.matchMedia('(max-width: 700px)');
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.querySelectorAll('.pcard-grid').forEach(function (grid) {
+    var cards = grid.querySelectorAll('.pcard');
+    if (cards.length < 2) return;
+    var dots = document.createElement('div');
+    dots.className = 'pcard-dots';
+    cards.forEach(function (_, i) {
+      var d = document.createElement('button');
+      d.type = 'button';
+      d.setAttribute('aria-label', 'Ir a tarjeta ' + (i + 1));
+      d.addEventListener('click', function () { stop(); goTo(i); });
+      dots.appendChild(d);
+    });
+    grid.insertAdjacentElement('afterend', dots);
+    var btns = dots.querySelectorAll('button');
+    var idx = 0, timer = null, visible = false;
+    function goTo(i) {
+      idx = (i + cards.length) % cards.length;
+      var c = cards[idx];
+      grid.scrollTo({ left: c.offsetLeft - (grid.clientWidth - c.offsetWidth) / 2, behavior: 'smooth' });
+    }
+    function paint() {
+      var center = grid.scrollLeft + grid.clientWidth / 2;
+      var best = 0, bd = 1e9;
+      cards.forEach(function (c, i) {
+        var d = Math.abs(c.offsetLeft + c.offsetWidth / 2 - center);
+        if (d < bd) { bd = d; best = i; }
+      });
+      idx = best;
+      btns.forEach(function (b, i) { b.classList.toggle('is-on', i === idx); });
+    }
+    grid.addEventListener('scroll', function () { requestAnimationFrame(paint); }, { passive: true });
+    paint();
+    function start() {
+      if (timer || reduced || !mq.matches || !visible) return;
+      timer = setInterval(function () { goTo(idx + 1); }, 2500);
+    }
+    function stop() { clearInterval(timer); timer = null; }
+    ['pointerdown', 'touchstart', 'wheel'].forEach(function (ev) {
+      grid.addEventListener(ev, stop, { passive: true });
+    });
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (en) {
+        visible = en[0].isIntersecting;
+        if (visible) start(); else stop();
+      }, { threshold: .4 }).observe(grid);
+    } else { visible = true; start(); }
+    document.addEventListener('visibilitychange', function () { if (document.hidden) stop(); else start(); });
+    if (mq.addEventListener) mq.addEventListener('change', function () { if (mq.matches) start(); else stop(); });
+  });
+})();
