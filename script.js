@@ -90,6 +90,7 @@
     ltv: $('#simLtv'), total: $('#simTotal'), capital: $('#simCapital'),
     vida: $('#simVida'), danos: $('#simDanos'), cat: $('#simCat'),
     enganche: $('#simEnganche'), pills: $$('.sim__pill[data-plazo]'), reset: $('#simReset'),
+    wa: $('#simWa'),
   };
   if (sim.vivienda) {
     const TASA = 0.105, APERTURA = 0.01, VIDA_M = 440, DANOS_M = 450, LTV_MAX = 0.90;
@@ -131,6 +132,12 @@
       sim.total.textContent = fmtMXN.format(total);
       sim.enganche.textContent = fmtMXN.format(enganche);
       sim.cat.textContent = cat.toFixed(2) + '%';
+      if (sim.wa) {
+        const msg = 'Hola Luis, simul\u00e9 mi hipoteca en luisbroker.com:\n\u00b7 Valor vivienda: ' + fmtMXN.format(V) +
+          '\n\u00b7 Monto de cr\u00e9dito: ' + fmtMXN.format(P) + '\n\u00b7 Plazo: ' + plazoSim + ' a\u00f1os' +
+          '\n\u00b7 Pago mensual estimado: ' + fmtMXN.format(total) + '\n\u00bfMe ayudas a pre-calificar?';
+        sim.wa.href = 'https://wa.me/5215527734067?text=' + encodeURIComponent(msg);
+      }
     };
     [sim.vivienda, sim.monto].forEach(el => el.addEventListener('input', computeSim));
     sim.pills.forEach(p => p.addEventListener('click', () => {
@@ -336,7 +343,7 @@
           .from('.hero__title',    { y: 40, autoAlpha: 0, duration: 1.1, ease: 'power3.out' }, '-=.5')
           .from('.hero__sub',      { y: 20, autoAlpha: 0, duration: .8, ease: 'power3.out' }, '-=.7')
           .from('.hero__cta > *',  { y: 20, autoAlpha: 0, duration: .6, stagger: .1, ease: 'power3.out' }, '-=.4')
-          .from('.hero__trust li', { y: 12, autoAlpha: 0, duration: .5, stagger: .08, ease: 'power2.out' }, '-=.3')
+          .from('.hero__stats > div', { y: 12, autoAlpha: 0, duration: .5, stagger: .08, ease: 'power2.out' }, '-=.3')
           .from('.hero__badges img', { y: 12, autoAlpha: 0, duration: .5, stagger: .1, ease: 'power2.out' }, '-=.2');
       }
 
@@ -423,10 +430,9 @@
 
       // Timeline zigzag steps
       gsap.utils.toArray('.timeline__step').forEach((step, i) => {
-        const isEven = (i + 1) % 2 === 0;
         gsap.fromTo(step,
-          { x: isEven ? 50 : -50, autoAlpha: 0 },
-          { x: 0, autoAlpha: 1, duration: 1.4, ease: 'power2.out',
+          { y: 18, autoAlpha: 0 },
+          { y: 0, autoAlpha: 1, duration: 1.4, ease: 'power2.out',
             scrollTrigger: { trigger: step, start: 'top 95%', end: 'top 60%', scrub: .8 } }
         );
       });
