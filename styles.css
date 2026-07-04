@@ -3425,26 +3425,6 @@ h1, h2, h3 { letter-spacing: -0.02em; }
 .sim__wa:active { transform: scale(.98); }
 .sim__wa i { font-size: 1.05rem; }
 
-/* --- C · PROCESO horizontal sobrio en desktop --- */
-@media (min-width: 1024px) {
-  .timeline__list { max-width: 1240px !important; flex-direction: row; align-items: stretch; gap: 1rem; }
-  .timeline__list::before {
-    top: 42px; bottom: auto; left: 5%; right: 5%; width: auto; height: 0;
-    border-left: 0; border-top: 2px dashed rgba(43,89,176,.20); transform: none;
-  }
-  .timeline__list .timeline__step {
-    flex: 1 1 0; margin: 0 !important; min-height: 0;
-    grid-template-columns: auto 1fr; align-items: center;
-    border-radius: 22px; padding: 1.35rem 1.3rem 1.5rem;
-  }
-  .timeline__list .timeline__step .timeline__num { order: unset; grid-column: 1; min-width: 0; padding: .55rem 1rem; font-size: 1.2rem; }
-  .timeline__list .timeline__step .timeline__icon { order: unset; grid-column: 2; justify-self: end; width: 44px; height: 44px; font-size: 1.05rem; }
-  .timeline__list .timeline__step .timeline__body { order: unset; grid-column: 1 / -1; text-align: left !important; padding: 0; margin-top: 1rem; }
-  .timeline__list .timeline__body h3 { font-size: 1.02rem; }
-  .timeline__list .timeline__body p { font-size: .82rem; }
-  .timeline__list .timeline__time { font-size: .68rem; letter-spacing: .12em; margin-top: .5rem; }
-}
-
 /* --- D · CTA final premium --- */
 .cta-final { position: relative; overflow: hidden; }
 .cta-final__wm {
@@ -3502,7 +3482,7 @@ h1, h2, h3 { letter-spacing: -0.02em; }
   display: flex; gap: 1.1rem; width: 100%;
   overflow-x: auto; scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch; overscroll-behavior-x: contain;
-  padding: .4rem max(calc((100vw - 1200px) / 2 + .5rem), 1.25rem) 1.2rem;
+  padding: .4rem clamp(1.25rem, 2.5vw, 2.5rem) 1.2rem;
   scrollbar-width: none;
 }
 .yt-slider::-webkit-scrollbar { display: none; }

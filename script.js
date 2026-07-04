@@ -430,9 +430,10 @@
 
       // Timeline zigzag steps
       gsap.utils.toArray('.timeline__step').forEach((step, i) => {
+        const isEven = (i + 1) % 2 === 0;
         gsap.fromTo(step,
-          { y: 18, autoAlpha: 0 },
-          { y: 0, autoAlpha: 1, duration: 1.4, ease: 'power2.out',
+          { x: isEven ? 50 : -50, autoAlpha: 0 },
+          { x: 0, autoAlpha: 1, duration: 1.4, ease: 'power2.out',
             scrollTrigger: { trigger: step, start: 'top 95%', end: 'top 60%', scrub: .8 } }
         );
       });
