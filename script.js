@@ -436,6 +436,54 @@
             scrollTrigger: { trigger: step, start: 'top 95%', end: 'top 60%', scrub: .8 } }
         );
       });
+
+      // Trustbar + strip bancos: fade suave al entrar
+      gsap.utils.toArray('.trustbar__row, .strip').forEach((el) => {
+        gsap.fromTo(el,
+          { y: 12, autoAlpha: 0 },
+          { y: 0, autoAlpha: 1, duration: 1.2, ease: 'power2.out',
+            scrollTrigger: { trigger: el, start: 'top 98%', end: 'top 78%', scrub: .8 } }
+        );
+      });
+
+      // VS: titulo, filas de tabla en cascada y CTA
+      gsap.utils.toArray('.vs-wrap .eyebrow, .vs-title, .vs-cta').forEach((el) => {
+        gsap.fromTo(el,
+          { y: 18, autoAlpha: 0 },
+          { y: 0, autoAlpha: 1, duration: 1.4, ease: 'power2.out',
+            scrollTrigger: { trigger: el, start: 'top 95%', end: 'top 70%', scrub: .8 } }
+        );
+      });
+      gsap.utils.toArray('.vs-row').forEach((row) => {
+        gsap.fromTo(row,
+          { y: 14, autoAlpha: 0 },
+          { y: 0, autoAlpha: 1, duration: 1.2, ease: 'power2.out',
+            scrollTrigger: { trigger: row, start: 'top 96%', end: 'top 72%', scrub: .8 } }
+        );
+      });
+
+      // Productos: header de anaquel, cards en stagger y prod-foot
+      gsap.utils.toArray('.prod-head').forEach((h) => {
+        gsap.fromTo(h,
+          { y: 18, autoAlpha: 0 },
+          { y: 0, autoAlpha: 1, duration: 1.4, ease: 'power2.out',
+            scrollTrigger: { trigger: h, start: 'top 95%', end: 'top 65%', scrub: .8 } }
+        );
+      });
+      gsap.utils.toArray('.pcard-grid').forEach((grid) => {
+        gsap.fromTo(grid.querySelectorAll('.pcard'),
+          { y: 22, autoAlpha: 0 },
+          { y: 0, autoAlpha: 1, duration: 1.4, stagger: .12, ease: 'power2.out',
+            scrollTrigger: { trigger: grid, start: 'top 95%', end: 'top 55%', scrub: .8 } }
+        );
+      });
+      gsap.utils.toArray('.prod-foot').forEach((f) => {
+        gsap.fromTo(f,
+          { y: 16, autoAlpha: 0 },
+          { y: 0, autoAlpha: 1, duration: 1.4, ease: 'power2.out',
+            scrollTrigger: { trigger: f, start: 'top 96%', end: 'top 75%', scrub: .8 } }
+        );
+      });
       const tlCta = $('.timeline__cta');
       if (tlCta) {
         gsap.fromTo(tlCta,
@@ -451,7 +499,7 @@
         gsap.fromTo(calcPanel,
           { y: 18, autoAlpha: 0 },
           { y: 0, autoAlpha: 1, duration: 1.4, ease: 'power2.out',
-            scrollTrigger: { trigger: '.calc', start: 'top 95%', end: 'top 60%', scrub: .8 } }
+            scrollTrigger: { trigger: '.sim', start: 'top 95%', end: 'top 70%', scrub: .8 } }
         );
       }
 
