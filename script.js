@@ -471,12 +471,21 @@
         );
       });
 
-      // FAQ items
-      gsap.fromTo('.faq__item',
-        { y: 18, autoAlpha: 0 },
-        { y: 0, autoAlpha: 1, duration: 1.4, stagger: .12, ease: 'power2.out',
-          scrollTrigger: { trigger: '.faq__list', start: 'top 95%', end: 'top 60%', scrub: .8 } }
-      );
+      // FAQ: headers de columna + cada pregunta con su propio trigger al entrar
+      gsap.utils.toArray('.faq__col-head').forEach((h) => {
+        gsap.fromTo(h,
+          { y: 18, autoAlpha: 0 },
+          { y: 0, autoAlpha: 1, duration: 1.4, ease: 'power2.out',
+            scrollTrigger: { trigger: h, start: 'top 95%', end: 'top 70%', scrub: .8 } }
+        );
+      });
+      gsap.utils.toArray('.faq__item').forEach((item) => {
+        gsap.fromTo(item,
+          { y: 18, autoAlpha: 0 },
+          { y: 0, autoAlpha: 1, duration: 1.4, ease: 'power2.out',
+            scrollTrigger: { trigger: item, start: 'top 95%', end: 'top 65%', scrub: .8 } }
+        );
+      });
 
       // CTA final
       const ctaFinal = $('.cta-final');
@@ -485,6 +494,11 @@
           { y: 18, autoAlpha: 0 },
           { y: 0, autoAlpha: 1, duration: 1.4, stagger: .26, ease: 'power2.out',
             scrollTrigger: { trigger: ctaFinal, start: 'top 95%', end: 'top 60%', scrub: .8 } }
+        );
+        gsap.fromTo('.cta-final__contact',
+          { y: 14, autoAlpha: 0 },
+          { y: 0, autoAlpha: 1, duration: 1.4, ease: 'power2.out',
+            scrollTrigger: { trigger: '.cta-final__contact', start: 'top 98%', end: 'top 80%', scrub: .8 } }
         );
       }
     } else {
